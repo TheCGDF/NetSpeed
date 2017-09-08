@@ -1,0 +1,8 @@
+#pragma once
+
+enum {
+	MENUITEM_SHOW,
+	MENUITEM_STARTUP,
+	MENUITEM_CLEAN,
+	MENUITEM_EXIT
+};

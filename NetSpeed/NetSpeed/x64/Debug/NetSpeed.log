@@ -1,0 +1,10 @@
+﻿  Registry.cpp
+d:\dropbox\project\netspeed\netspeed\registry\registry.cpp(94): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+  NotifyIcon.cpp
+  Net.cpp
+  Menu.cpp
+  Main.cpp
+  DialogMain.cpp
+  Generating Code...
+  NetSpeed.vcxproj -> D:\Dropbox\Project\NetSpeed\x64\Debug\NetSpeed.exe
+  NetSpeed.vcxproj -> D:\Dropbox\Project\NetSpeed\x64\Debug\NetSpeed.pdb (Partial PDB)

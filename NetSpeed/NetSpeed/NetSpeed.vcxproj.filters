@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Net">
+      <UniqueIdentifier>{8c0659b5-1d60-4f09-b6bf-e688ea4b6eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{062773fe-4cdc-445e-9e64-24fdfa603dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NotifyIcon">
+      <UniqueIdentifier>{7d05ce1a-31d6-4fe5-8ff9-cdb6815dec7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DialogMain">
+      <UniqueIdentifier>{a96598b7-a1ee-41f1-8973-d66e51feb8ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Registry">
+      <UniqueIdentifier>{d9257cf2-b939-421a-96fa-b6223dd76544}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\NetSpeed.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Net\Net.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\WM_USER.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="NotifyIcon\NotifyIcon.h">
+      <Filter>NotifyIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogMain\DialogMain.h">
+      <Filter>DialogMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\MENUITEM.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Registry\Registry.h">
+      <Filter>Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="Registry\REGISTRYPATH.h">
+      <Filter>Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="Registry\REGISTRYVALUE.h">
+      <Filter>Registry</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Net\Net.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\Menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="NotifyIcon\NotifyIcon.cpp">
+      <Filter>NotifyIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogMain\DialogMain.cpp">
+      <Filter>DialogMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Registry\Registry.cpp">
+      <Filter>Registry</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\Icon_Main.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
