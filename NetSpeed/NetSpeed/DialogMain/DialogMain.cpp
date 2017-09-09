@@ -6,6 +6,7 @@
 #include "../Registry/Registry.h"
 #include "../Resource/resource.h"
 
+HBRUSH color_background;
 HWND dialog_main;
 
 INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARAM lparam) {
@@ -14,13 +15,13 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 	switch (message) {
 		case WM_CTLCOLORDLG:
 		{
-			return (INT_PTR)CreateSolidBrush(RGB(0, 0, 0));
+			return (INT_PTR)color_background;
 		}
 		case WM_CTLCOLORSTATIC:
 		{
 			SetBkMode((HDC)wparam, TRANSPARENT);
 			SetTextColor((HDC)wparam, RGB(255, 255, 255));
-			return (INT_PTR)CreateSolidBrush(RGB(0, 0, 0));
+			return (INT_PTR)color_background;
 		}
 		case WM_COMMAND:
 		{
@@ -55,6 +56,7 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 		}
 		case WM_INITDIALOG:
 		{
+			color_background= CreateSolidBrush(RGB(0, 0, 0));
 			POINT dialog_position= Registry::Position_Get();
 			if (dialog_position.x != -1 && dialog_position.y != -1) {
 				SetWindowPos(dialog_main, NULL, dialog_position.x, dialog_position.y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);

@@ -7,8 +7,8 @@
 #include "Net\Net.h"
 #include "NotifyIcon\NotifyIcon.h"
 
-std::wstring file_path;
 std::wstring file_name;
+std::wstring file_path;
 
 INT WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpszCmdLine, INT iCmdShow) {
 	WCHAR path_file[MAX_PATH];

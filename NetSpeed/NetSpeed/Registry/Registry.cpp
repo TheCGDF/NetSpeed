@@ -42,6 +42,7 @@ VOID Registry::Position_Create() {
 		(PBYTE)&dialog_rect.top,
 		sizeof(LONG)
 	);
+	RegCloseKey(registry_key);
 }
 
 VOID Registry::Position_Delete() {
@@ -86,12 +87,15 @@ VOID Registry::Startup_Create() {
 		&registry_key,
 		NULL
 	);
-	RegSetValueExW(registry_key,
+	RegSetValueExW(
+		registry_key,
 		file_name.c_str(),
 		0,
 		REG_SZ,
 		(PBYTE)file_path.c_str(),
-		file_path.length() * sizeof(WCHAR));
+		file_path.length() * sizeof(WCHAR)
+	);
+	RegCloseKey(registry_key);
 }
 
 VOID Registry::Startup_Delete() {
