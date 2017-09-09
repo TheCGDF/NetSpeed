@@ -14,15 +14,16 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 	switch (message) {
 		case WM_CTLCOLORDLG:
 		{
-			return (INT_PTR)GetStockObject(BLACK_BRUSH);
+			return (INT_PTR)CreateSolidBrush(RGB(0, 0, 0));
 		}
 		case WM_CTLCOLORSTATIC:
 		{
 			SetBkMode((HDC)wparam, TRANSPARENT);
 			SetTextColor((HDC)wparam, RGB(255, 255, 255));
-			return (INT_PTR)CreateSolidBrush(BLACK_BRUSH);
+			return (INT_PTR)CreateSolidBrush(RGB(0, 0, 0));
 		}
 		case WM_COMMAND:
+		{
 			switch (LOWORD(wparam)) {
 				case WM_MENUCLEAN:
 				{
@@ -51,6 +52,7 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 				}
 			}
 			break;
+		}
 		case WM_INITDIALOG:
 		{
 			POINT dialog_position= Registry::Position_Get();
@@ -65,7 +67,7 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 			SetLayeredWindowAttributes(dialog_main, 0, (255 * 50) / 100, LWA_ALPHA);
 			NotifyIcon::Init();
 			Net::RefreshNetSpeedStart();
-			return TRUE;
+			break;
 		}
 		case WM_NOTIFYICON:
 		{
@@ -86,17 +88,17 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 		{
 			//It will also influence WM_LBUTTONUP
 			SendMessageW(dialog_main, WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(LOWORD(lparam), HIWORD(lparam)));
-			return TRUE;
+			break;
 		}
 		case WM_EXITSIZEMOVE:
 		{
 			Registry::Position_Create();
-			return TRUE;
+			break;
 		}
 		case WM_RBUTTONUP:
 		{
 			Menu::Pop();
-			return TRUE;
+			break;
 		}
 		default:
 		{

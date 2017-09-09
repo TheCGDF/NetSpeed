@@ -1,6 +1,7 @@
-﻿  Generating code
-  46 of 136 functions (33.8%) were compiled, the rest were copied from previous compilation.
+﻿  DialogMain.cpp
+  Generating code
+  3 of 136 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  NetSpeed.vcxproj -> D:\Dropbox\Project\NetSpeed\x64\Release\NetSpeed.exe
+  NetSpeed.vcxproj -> D:\Dropbox\Project\NetSpeed\NetSpeed\x64\Release\NetSpeed.exe
