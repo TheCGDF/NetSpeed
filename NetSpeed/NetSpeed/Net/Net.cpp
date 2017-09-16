@@ -1,7 +1,7 @@
 #include "Net.h"
 #include <string>
-#include "../Resource/resource.h"
 #include "../DialogMain/DialogMain.h"
+#include "../Resource/resource.h"
 
 HANDLE Net::thread_refresh_;
 PMIB_IFROW Net::adapter_info_ = nullptr;
@@ -26,15 +26,18 @@ VOID Net::AdapterGet() {
 		}
 	}
 
+	//100 just is a joke
 	for (DWORD index = 0; index <= 100; index++) {
 		adapter_info_->dwIndex = index;
 		if (GetIfEntry(adapter_info_) != NO_ERROR) {
 			continue;
 		}
 		if (adapter_info_->dwType == IF_TYPE_IEEE80211) {
-			break;
+			return;
 		}
 	}
+	MessageBoxW(NULL, L"Found no adapter", L"Error", MB_OK);
+	EndDialog(dialog_main, 0);
 }
 
 DWORD Net::RefreshNetSpeed(LPVOID) {
