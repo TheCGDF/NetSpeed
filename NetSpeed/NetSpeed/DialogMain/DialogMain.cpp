@@ -54,6 +54,11 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 			}
 			break;
 		}
+		case WM_EXITSIZEMOVE:
+		{
+			Registry::Position_Create();
+			break;
+		}
 		case WM_INITDIALOG:
 		{
 			color_background= CreateSolidBrush(RGB(0, 0, 0));
@@ -67,8 +72,17 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 				GetWindowLongW(dialog_main, GWL_EXSTYLE) | WS_EX_LAYERED | WS_EX_TOOLWINDOW
 			);
 			SetLayeredWindowAttributes(dialog_main, 0, (255 * 50) / 100, LWA_ALPHA);
-			NotifyIcon::Init();
 			Net::RefreshNetSpeedStart();
+			break;
+		}
+		case WM_LBUTTONDOWN:
+		{
+			SendMessageW(dialog_main, WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(LOWORD(lparam), HIWORD(lparam)));
+			break;
+		}
+		case WM_NCPAINT:
+		{
+			NotifyIcon::Init();
 			break;
 		}
 		case WM_NOTIFYICON:
@@ -85,16 +99,6 @@ INT_PTR WINAPI DialogMainProcess(HWND dialog, UINT message, WPARAM wparam, LPARA
 					break;
 				}
 			}
-		}
-		case WM_LBUTTONDOWN:
-		{
-			//It will also influence WM_LBUTTONUP
-			SendMessageW(dialog_main, WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(LOWORD(lparam), HIWORD(lparam)));
-			break;
-		}
-		case WM_EXITSIZEMOVE:
-		{
-			Registry::Position_Create();
 			break;
 		}
 		case WM_RBUTTONUP:
