@@ -1,19 +1,20 @@
 #pragma once
 #include <WS2tcpip.h>
 #include <iphlpapi.h>
+class Net;
 
 class Net {
 public:
 	static VOID Init();
-	static VOID RefreshNetSpeedStart();
+	static VOID Refresh_Start();
 private:
-	static HANDLE thread_refresh_;
-	static PMIB_IFROW adapter_info_;
-	static DWORD download_old_;
-	static DWORD download_new_;
-	static DWORD upload_old_;
-	static DWORD upload_new_;
-	static BOOL thread_exit_;
-	static VOID AdapterGet();
-	static DWORD WINAPI RefreshNetSpeed(LPVOID);
+	static VOID			Adapter_Get();
+	static DWORD WINAPI	NetSpeed_Refresh(LPVOID);
+	static PMIB_IFROW	Adapter_Info_;
+	static DWORD		Download_New_;
+	static DWORD		Download_Old_;
+	static BOOL			Thread_Exit_;
+	static HANDLE		Thread_Refresh_;
+	static DWORD		Upload_Old_;
+	static DWORD		Upload_New_;
 };

@@ -1,10 +1,11 @@
 #pragma once
 #include <WS2tcpip.h>
+class NotifyIcon;
 
 class NotifyIcon {
 public:
+	static VOID Destroy();
 	static VOID Init();
-	static VOID Delete();
 private:
-	static NOTIFYICONDATAW data_;
+	static NOTIFYICONDATAW Data_;
 };

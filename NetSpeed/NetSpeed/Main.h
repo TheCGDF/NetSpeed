@@ -1,5 +1,6 @@
 #pragma once
+#include <WS2tcpip.h>
 #include <string>
 
-extern std::wstring file_name;
-extern std::wstring file_path;
+extern std::wstring	File_Name;
+extern std::wstring	File_Path;

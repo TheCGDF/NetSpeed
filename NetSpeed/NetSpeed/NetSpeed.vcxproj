@@ -22,25 +22,27 @@
     <ResourceCompile Include="Resource\NetSpeed.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DialogMain\DialogMain.h" />
+    <ClInclude Include="Dialog\Dialog.h" />
+    <ClInclude Include="Dialog_Main\Dialog_Main.h" />
+    <ClInclude Include="Dialog_Setting\Dialog_Setting.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Menu\Menu.h" />
-    <ClInclude Include="Menu\MENUITEM.h" />
     <ClInclude Include="Net\Net.h" />
     <ClInclude Include="NotifyIcon\NotifyIcon.h" />
     <ClInclude Include="Registry\Registry.h" />
-    <ClInclude Include="Registry\REGISTRYPATH.h" />
-    <ClInclude Include="Registry\REGISTRYVALUE.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Resource\WM_USER.h" />
+    <ClInclude Include="Text\Text.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DialogMain\DialogMain.cpp" />
+    <ClCompile Include="Dialog_Main\Dialog_Main.cpp" />
+    <ClCompile Include="Dialog_Setting\Dialog_Setting.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="Net\Net.cpp" />
     <ClCompile Include="NotifyIcon\NotifyIcon.cpp" />
     <ClCompile Include="Registry\Registry.cpp" />
+    <ClCompile Include="Text\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon_Main.ico" />
@@ -49,21 +51,21 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3904678E-7C22-48DD-87A0-D938897C53BF}</ProjectGuid>
     <RootNamespace>NetSpeed</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

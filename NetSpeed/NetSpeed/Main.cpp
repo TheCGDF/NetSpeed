@@ -2,27 +2,29 @@
 #include <WS2tcpip.h>
 #include <ShellScalingAPI.h>
 #include <Shlwapi.h>
-#include "DialogMain\DialogMain.h"
+#include "Dialog_Main\Dialog_Main.h"
 #include "Menu\Menu.h"
 #include "Net\Net.h"
 #include "NotifyIcon\NotifyIcon.h"
 #include "Resource\resource.h"
+#include "Text\Text.h"
 
-std::wstring file_name;
-std::wstring file_path;
+std::wstring	File_Name;
+std::wstring	File_Path;
 
-INT WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpszCmdLine, INT iCmdShow) {
+INT WINAPI wWinMain(HINSTANCE Handle_Instance, HINSTANCE Handle_Instance_Previous, LPWSTR Commond, INT Show_Commend) {
 	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
 
-	WCHAR path_file[MAX_PATH];
-	GetModuleFileNameW(NULL, path_file, MAX_PATH);
-	file_path = path_file;
-	file_name = PathFindFileNameW(path_file);
-	file_name.erase(file_name.end() - 4, file_name.end());
+	WCHAR Path_File[MAX_PATH];
+	GetModuleFileNameW(NULL, Path_File, MAX_PATH);
+	File_Path = Path_File;
+	File_Name = PathFindFileNameW(Path_File);
+	File_Name.erase(File_Name.end() - 4, File_Name.end());
 
+	Text::Init();
 	Menu::Init();
 	Net::Init();
 
-	DialogBoxW(hInstance, MAKEINTRESOURCE(DIALOG_MAIN), NULL, DialogMainProcess);
+	DialogBoxW(Handle_Instance, MAKEINTRESOURCE(ID_Dialog_Main), NULL, Dialog_Main::Process);
 	return 0;
 }

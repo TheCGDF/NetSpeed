@@ -1,75 +1,88 @@
 #include "Menu.h"
-#include "MENUITEM.h"
+#include <windowsx.h>
+#include "../Dialog_Main/Dialog_Main.h"
+#include "../Dialog_Setting/Dialog_Setting.h"
 #include "../Main.h"
-#include "../DialogMain/DialogMain.h"
 #include "../NotifyIcon/NotifyIcon.h"
 #include "../Registry/Registry.h"
-#include "../Registry/REGISTRYPATH.h"
+#include "../Resource/resource.h"
+#include "../Text/Text.h"
 
-BOOL Menu::startup_ = FALSE;
-HMENU Menu::handle_;
-BOOL Menu::show_ = TRUE;
+HMENU	Menu::Handle_;
+BOOL	Menu::Show_ = TRUE;
+BOOL	Menu::Startup_ = FALSE;
 
-VOID Menu::Pop() {
-	show_ = IsWindowVisible(dialog_main);
-	if (show_ == TRUE) {
-		ModifyMenu(handle_, MENUITEM_SHOW, MF_BYPOSITION | MF_STRING, WM_MENUSHOW, L"Hide");
-	}
-	else if (show_ == FALSE) {
-		ModifyMenu(handle_, MENUITEM_SHOW, MF_BYPOSITION | MF_STRING, WM_MENUSHOW, L"Show");
-	}
-
-	LSTATUS startup_status = Registry::Startup_Status();
-	if (startup_status == ERROR_SUCCESS) {
-		startup_ = TRUE;
-		ModifyMenuW(handle_, MENUITEM_STARTUP, MF_BYPOSITION | MF_STRING | MF_CHECKED, WM_MENUSTARTUP, L"Startup");
-	}
-	else if (startup_status == ERROR_FILE_NOT_FOUND) {
-		startup_ = FALSE;
-		ModifyMenuW(handle_, MENUITEM_STARTUP, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, WM_MENUSTARTUP, L"Startup");
-	}
-	else {
-		MessageBoxW(NULL, L"Can't open registry.", L"Error", MB_OK);
-	}
-
-	SetForegroundWindow(dialog_main);
-	POINT cursor;
-	GetCursorPos(&cursor);
-	TrackPopupMenu(handle_, TPM_BOTTOMALIGN | TPM_LEFTALIGN, cursor.x, cursor.y, 0, dialog_main, NULL);
-}
+//public:
 
 VOID Menu::Init() {
-	handle_ = CreatePopupMenu();
-	InsertMenuW(handle_, 0, MF_STRING, WM_MENUSHOW, L"Hide");
-	InsertMenuW(handle_, 0, MF_STRING | MF_CHECKED, WM_MENUSTARTUP, L"Startup");
-	InsertMenuW(handle_, 0, MF_STRING, WM_MENUCLEAN, L"Clean");
-	InsertMenuW(handle_, 0, MF_STRING, WM_MENUEXIT, L"Exit");
-}
-
-VOID Menu::Item_Clean() {
-	Registry::Clean();
+	Handle_ = CreatePopupMenu();
+	for (INT Index = 0; Index <= Item::Total - 1; Index++) {
+		InsertMenuW(Handle_, 0, MF_STRING, NULL, NULL);
+	}
 }
 
 VOID Menu::Item_Exit() {
-	NotifyIcon::Delete();
-	EndDialog(dialog_main, 0);
+	if (Dialog_Setting::Handle_Get() != NULL) {
+		Dialog_Setting::Destroy();
+	}
+	NotifyIcon::Destroy();
+	Dialog_Main::Destroy();
+}
+
+VOID Menu::Item_Setting() {
+	HWND Handle_Dialog_Setting = Dialog_Setting::Handle_Get();
+	if (Handle_Dialog_Setting != NULL) {
+		SetForegroundWindow(Handle_Dialog_Setting);
+		return;
+	}
+	DialogBoxW(NULL, MAKEINTRESOURCE(ID_Dialog_Setting), NULL, Dialog_Setting::Process);
 }
 
 VOID Menu::Item_Show() {
-	if (show_ == TRUE) {
-		ShowWindow(dialog_main, SW_HIDE);
+	if (Show_ == TRUE) {
+		ShowWindow(Dialog_Main::Handle_Get(), SW_HIDE);
 	}
-	else if (show_ == FALSE) {
-		ShowWindow(dialog_main, SW_SHOW);
+	else if (Show_ == FALSE) {
+		ShowWindow(Dialog_Main::Handle_Get(), SW_SHOW);
+	}
+	if (Dialog_Setting::Handle_Get() != NULL) {
+		Dialog_Setting::Refresh_Check_Setting_Show();
 	}
 }
 
 VOID Menu::Item_Startup() {
-	if (startup_ == TRUE) {
-		Registry::Startup_Delete();
+	Registry::Startup_Set(!Startup_);
+	if (Dialog_Setting::Handle_Get() != NULL) {
+		Dialog_Setting::Refresh_Check_Setting_Startup();
+	}
+}
 
+VOID Menu::Pop() {
+	//Show
+	Show_ = IsWindowVisible(Dialog_Main::Handle_Get());
+	if (Show_ == TRUE) {
+		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::Menu_Item_Hide().c_str());
 	}
-	else if (startup_ == FALSE) {
-		Registry::Startup_Create();
+	else if (Show_ == FALSE) {
+		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::Menu_Item_Show().c_str());
 	}
+	//Startup
+	Startup_ = Registry::Startup_Get();
+	if (Startup_ == TRUE) {
+		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_CHECKED, WM_MENU_STARTUP, Text::Menu_Item_Startup().c_str());
+	}
+	else if (Startup_ == FALSE) {
+		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, WM_MENU_STARTUP, Text::Menu_Item_Startup().c_str());
+	}
+	else {
+		MessageBoxW(NULL, Text::Message_AdapterFindFail().c_str(), NULL, MB_OK);
+	}
+	//Setting
+	ModifyMenu(Handle_, Item::Setting, MF_BYPOSITION | MF_STRING, WM_MENU_SETTING, Text::Menu_Item_Setting().c_str());
+	//Exit
+	ModifyMenu(Handle_, Item::Exit, MF_BYPOSITION | MF_STRING, WM_MENU_EXIT, Text::Menu_Item_Exit().c_str());
+	SetForegroundWindow(Dialog_Main::Handle_Get());
+	POINT Point_Cursor;
+	GetCursorPos(&Point_Cursor);
+	TrackPopupMenu(Handle_, TPM_BOTTOMALIGN | TPM_LEFTALIGN, Point_Cursor.x, Point_Cursor.y, 0, Dialog_Main::Handle_Get(), NULL);
 }
