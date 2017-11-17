@@ -1,5 +1,4 @@
 #include "Dialog_Main.h"
-#include <shellapi.h>
 #include "../Dialog_Setting/Dialog_Setting.h"
 #include "../Menu/Menu.h"
 #include "../Timer_Refresh/Timer_Refresh.h"

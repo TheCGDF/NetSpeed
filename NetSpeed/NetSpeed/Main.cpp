@@ -1,5 +1,4 @@
 #include "Main.h"
-#include <WS2tcpip.h>
 #include <ShellScalingAPI.h>
 #include <Shlwapi.h>
 #include "Dialog_Main/Dialog_Main.h"
@@ -11,6 +10,7 @@
 
 std::wstring	File_Name;
 std::wstring	File_Path;
+
 
 INT WINAPI wWinMain(HINSTANCE Handle_Instance, HINSTANCE Handle_Instance_Previous, LPWSTR Commond, INT Show_Commend) {
 	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
