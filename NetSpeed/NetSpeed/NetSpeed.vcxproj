@@ -27,22 +27,22 @@
     <ClInclude Include="Dialog_Setting\Dialog_Setting.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Menu\Menu.h" />
-    <ClInclude Include="Net\Net.h" />
     <ClInclude Include="NotifyIcon\NotifyIcon.h" />
     <ClInclude Include="Registry\Registry.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Resource\WM_USER.h" />
     <ClInclude Include="Text\Text.h" />
+    <ClInclude Include="Timer_Refresh\Timer_Refresh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dialog_Main\Dialog_Main.cpp" />
     <ClCompile Include="Dialog_Setting\Dialog_Setting.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
-    <ClCompile Include="Net\Net.cpp" />
     <ClCompile Include="NotifyIcon\NotifyIcon.cpp" />
     <ClCompile Include="Registry\Registry.cpp" />
     <ClCompile Include="Text\Text.cpp" />
+    <ClCompile Include="Timer_Refresh\Timer_Refresh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon_Main.ico" />

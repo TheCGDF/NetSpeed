@@ -2,13 +2,12 @@
 #include <shellapi.h>
 #include "../Dialog_Setting/Dialog_Setting.h"
 #include "../Menu/Menu.h"
-#include "../Net/Net.h"
+#include "../Timer_Refresh/Timer_Refresh.h"
 #include "../NotifyIcon/NotifyIcon.h"
 #include "../Registry/Registry.h"
 #include "../Resource/resource.h"
 
 HBRUSH	Dialog_Main::Handle_Color_Background_;
-BOOL	Dialog_Main::Show_;
 
 //public:
 
@@ -79,7 +78,7 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT Message_Dialog, WPARAM Par
 			);
 			INT Transparency = Registry::Transparency_Get();
 			Transparency_Set(Transparency);
-			Net::Refresh_Start();
+			Timer_Refresh::Start();
 			break;
 		}
 		case WM_LBUTTONDOWN:

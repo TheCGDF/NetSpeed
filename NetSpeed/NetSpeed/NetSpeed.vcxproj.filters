@@ -5,9 +5,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Net">
-      <UniqueIdentifier>{8c0659b5-1d60-4f09-b6bf-e688ea4b6eb9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Menu">
       <UniqueIdentifier>{062773fe-4cdc-445e-9e64-24fdfa603dc8}</UniqueIdentifier>
     </Filter>
@@ -29,6 +26,9 @@
     <Filter Include="Dialog">
       <UniqueIdentifier>{c9e839f1-b6a3-4f7a-9376-038f482f3e4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Timer_Refresh">
+      <UniqueIdentifier>{8c0659b5-1d60-4f09-b6bf-e688ea4b6eb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource\NetSpeed.rc">
@@ -38,9 +38,6 @@
   <ItemGroup>
     <ClInclude Include="Resource\resource.h">
       <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Net\Net.h">
-      <Filter>Net</Filter>
     </ClInclude>
     <ClInclude Include="Menu\Menu.h">
       <Filter>Menu</Filter>
@@ -67,12 +64,12 @@
     <ClInclude Include="Dialog\Dialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="Timer_Refresh\Timer_Refresh.h">
+      <Filter>Timer_Refresh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Net\Net.cpp">
-      <Filter>Net</Filter>
-    </ClCompile>
     <ClCompile Include="Menu\Menu.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
@@ -90,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="Dialog_Setting\Dialog_Setting.cpp">
       <Filter>Dialog_Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer_Refresh\Timer_Refresh.cpp">
+      <Filter>Timer_Refresh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

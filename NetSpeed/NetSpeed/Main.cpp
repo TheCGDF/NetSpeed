@@ -2,12 +2,12 @@
 #include <WS2tcpip.h>
 #include <ShellScalingAPI.h>
 #include <Shlwapi.h>
-#include "Dialog_Main\Dialog_Main.h"
-#include "Menu\Menu.h"
-#include "Net\Net.h"
-#include "NotifyIcon\NotifyIcon.h"
-#include "Resource\resource.h"
-#include "Text\Text.h"
+#include "Dialog_Main/Dialog_Main.h"
+#include "Menu/Menu.h"
+#include "Timer_Refresh/Timer_Refresh.h"
+#include "NotifyIcon/NotifyIcon.h"
+#include "Resource/resource.h"
+#include "Text/Text.h"
 
 std::wstring	File_Name;
 std::wstring	File_Path;
@@ -23,7 +23,7 @@ INT WINAPI wWinMain(HINSTANCE Handle_Instance, HINSTANCE Handle_Instance_Previou
 
 	Text::Init();
 	Menu::Init();
-	Net::Init();
+	Timer_Refresh::Init();
 
 	DialogBoxW(Handle_Instance, MAKEINTRESOURCE(ID_Dialog_Main), NULL, Dialog_Main::Process);
 	return 0;

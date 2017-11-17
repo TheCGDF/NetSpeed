@@ -14,7 +14,6 @@ public:
 	static VOID				Transparency_Set(INT Transparency);
 private:
 	static HBRUSH	Handle_Color_Background_;
-	static BOOL		Show_;
 };
 
 
