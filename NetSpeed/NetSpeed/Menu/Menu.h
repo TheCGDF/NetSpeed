@@ -7,11 +7,12 @@ class Menu;
 class Menu {
 public:
 	static VOID Init();
+	static VOID Pop();
+public:
 	static VOID Item_Exit();
 	static VOID Item_Setting();
 	static VOID Item_Show();
 	static VOID Item_Startup();
-	static VOID Pop();
 private:
 	enum Item {
 		Show,
@@ -21,6 +22,4 @@ private:
 		Total
 	};
 	static HMENU	Handle_;
-	static BOOL		Show_;
-	static BOOL		Startup_;
 };

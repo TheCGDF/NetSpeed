@@ -1,7 +1,8 @@
 #include "Main.h"
 #include <ShellScalingAPI.h>
 #include <Shlwapi.h>
-#include "Dialog_Main/Dialog_Main.h"
+
+#include "Dialog/Dialog_Main/Dialog_Main.h"
 #include "Menu/Menu.h"
 #include "Timer_Refresh/Timer_Refresh.h"
 #include "NotifyIcon/NotifyIcon.h"
@@ -10,7 +11,6 @@
 
 std::wstring	File_Name;
 std::wstring	File_Path;
-
 
 INT WINAPI wWinMain(HINSTANCE Handle_Instance, HINSTANCE Handle_Instance_Previous, LPWSTR Commond, INT Show_Commend) {
 	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
@@ -23,7 +23,6 @@ INT WINAPI wWinMain(HINSTANCE Handle_Instance, HINSTANCE Handle_Instance_Previou
 
 	Text::Init();
 	Menu::Init();
-	Timer_Refresh::Init();
 
 	DialogBoxW(Handle_Instance, MAKEINTRESOURCE(ID_Dialog_Main), NULL, Dialog_Main::Process);
 	return 0;

@@ -1,5 +1,6 @@
 #include "NotifyIcon.h"
-#include "../Dialog_Main/Dialog_Main.h"
+
+#include "../Dialog/Dialog_Main/Dialog_Main.h"
 #include "../Resource/resource.h"
 #include "../Resource/WM_USER.h"
 
@@ -18,7 +19,7 @@ VOID NotifyIcon::Init() {
 	Data_.hWnd = Dialog_Main::Handle_Get();
 	Data_.uID = ID_NotifyIcon_Main;
 	Data_.uVersion = NOTIFYICON_VERSION_4;
-	wcscpy_s(Data_.szTip, L"NetSpeed");
+	wcscpy_s(Data_.szTip, L"NetSpeed v1.2.0");
 	Data_.uFlags = NIF_TIP | NIF_ICON | NIF_MESSAGE;
 	Shell_NotifyIconW(NIM_ADD, &Data_);
 }

@@ -23,8 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dialog\Dialog.h" />
-    <ClInclude Include="Dialog_Main\Dialog_Main.h" />
-    <ClInclude Include="Dialog_Setting\Dialog_Setting.h" />
+    <ClInclude Include="Dialog\Dialog_Main\Dialog_Main.h" />
+    <ClInclude Include="Dialog\Dialog_Setting\Dialog_Setting.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="NotifyIcon\NotifyIcon.h" />
@@ -35,8 +35,8 @@
     <ClInclude Include="Timer_Refresh\Timer_Refresh.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Dialog_Main\Dialog_Main.cpp" />
-    <ClCompile Include="Dialog_Setting\Dialog_Setting.cpp" />
+    <ClCompile Include="Dialog\Dialog_Main\Dialog_Main.cpp" />
+    <ClCompile Include="Dialog\Dialog_Setting\Dialog_Setting.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="NotifyIcon\NotifyIcon.cpp" />

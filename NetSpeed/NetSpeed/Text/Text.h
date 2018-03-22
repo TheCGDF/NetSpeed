@@ -10,14 +10,15 @@ public:
 		Chinese_Simplified,
 		Total
 	};
-	static std::wstring	Button_Setting_Clean();
-	static std::wstring	Button_Setting_CleanAndExit();
-	static std::wstring	Check_Setting_Show();
-	static std::wstring	Check_Setting_Startup();
-	static std::wstring	Dialog_Setting_Caption();
 	static VOID			Init();
-	static INT			Language_Get();
-	static VOID			Language_Set(INT Language);
+	static INT			Language_Get(std::wstring Language_Name);
+	static std::wstring	Name(INT Language);
+public:
+	static std::wstring	Button_Clean();
+	static std::wstring	Button_CleanAndExit();
+	static std::wstring	Check_Show();
+	static std::wstring	Check_Startup();
+	static std::wstring	Dialog_Caption();
 	static std::wstring	Menu_Item_Clean();
 	static std::wstring	Menu_Item_Exit();
 	static std::wstring	Menu_Item_Hide();
@@ -28,12 +29,11 @@ public:
 	static std::wstring	Message_AdapterFindFail();
 	static std::wstring	Message_RegistryOpenFail();
 	static std::wstring	Name();
-	static std::wstring	Name(INT Language);
-	static std::wstring	Static_Setting_Language();
-	static std::wstring	Static_Setting_Transparency();
+	static std::wstring	Static_Language();
+	static std::wstring	Static_Size();
+	static std::wstring	Static_Transparency();
 private:
-	static std::vector<Text>	List_;
-	static INT					Language_;
+	static std::vector<Text>	Vector_Text_;
 	std::wstring				Menu_Item_Clean_ = L"Clean";
 	std::wstring				Menu_Item_Exit_ = L"Exit";
 	std::wstring				Menu_Item_Hide_ = L"Hide";
@@ -44,11 +44,12 @@ private:
 	std::wstring				Message_RegistryOpenFail_ = L"Can't open registry.";
 	std::wstring				Message_CleanFinish_ = L"All registry has been cleanned.";
 	std::wstring				Name_ = L"English";
-	std::wstring				Button_Setting_Clean_ = L"Clean";
-	std::wstring				Button_Setting_CleanAndExit_ = L"Clean And Exit";
+	std::wstring				Button_Clean_ = L"Clean";
+	std::wstring				Button_CleanAndExit_ = L"Clean And Exit";
 	std::wstring				Dialog_Setting_Caption_ = L"Setting";
-	std::wstring				Static_Setting_Language_ = L"Language";
-	std::wstring				Static_Setting_Transparency_ = L"Transparency:";
-	std::wstring				Check_Setting_Show_ = L"Show";
-	std::wstring				Check_Setting_Startup_ = L"Startup";
+	std::wstring				Static_Language_ = L"Language";
+	std::wstring				Static_Transparency_ = L"Transparency:";
+	std::wstring				Static_Size_ = L"Size";
+	std::wstring				Check_Show_ = L"Show";
+	std::wstring				Check_Startup_ = L"Startup";
 };
