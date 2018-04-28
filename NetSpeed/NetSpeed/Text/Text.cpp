@@ -9,6 +9,8 @@ std::vector<Text>	Text::Vector_Text_(Text::Language::Total);
 VOID Text::Init() {
 	Vector_Text_[Language::Chinese_Simplified].Button_Clean_ = L"清理";
 	Vector_Text_[Language::Chinese_Simplified].Button_CleanAndExit_ = L"清理并退出";
+	Vector_Text_[Language::Chinese_Simplified].Button_ColorBackground_ = L"背景颜色";
+	Vector_Text_[Language::Chinese_Simplified].Button_ColorText_ = L"文字颜色";
 	Vector_Text_[Language::Chinese_Simplified].Dialog_Setting_Caption_ = L"设置";
 	Vector_Text_[Language::Chinese_Simplified].Menu_Item_Clean_ = L"清理注册表";
 	Vector_Text_[Language::Chinese_Simplified].Menu_Item_Exit_ = L"退出";
@@ -20,7 +22,7 @@ VOID Text::Init() {
 	Vector_Text_[Language::Chinese_Simplified].Message_RegistryOpenFail_ = L"打开注册表失败。";
 	Vector_Text_[Language::Chinese_Simplified].Name_ = L"简体中文";
 	Vector_Text_[Language::Chinese_Simplified].Static_Language_ = L"语言";
-	Vector_Text_[Language::Chinese_Simplified].Static_Size_ = L"大小：";
+	Vector_Text_[Language::Chinese_Simplified].Static_Size_ = L"大小";
 	Vector_Text_[Language::Chinese_Simplified].Static_Transparency_ = L"透明度：";
 }
 
@@ -49,6 +51,16 @@ std::wstring Text::Button_Clean() {
 std::wstring Text::Button_CleanAndExit() {
 	INT Language_Index = Registry::Language_Get();
 	return Vector_Text_[Language_Index].Button_CleanAndExit_;
+}
+
+std::wstring Text::Button_ColorBackground() {
+	INT Language_Index = Registry::Language_Get();
+	return Vector_Text_[Language_Index].Button_ColorBackground_;
+}
+
+std::wstring Text::Button_ColorText() {
+	INT Language_Index = Registry::Language_Get();
+	return Vector_Text_[Language_Index].Button_ColorText_;
 }
 
 std::wstring Text::Check_Show() {

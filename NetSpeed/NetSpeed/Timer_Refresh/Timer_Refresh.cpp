@@ -60,12 +60,13 @@ VOID Timer_Refresh::Start() {
 	if (Set_Adapter_.empty()) {
 		return;
 	}
-	CreateTimerQueueTimer(&Handle_, NULL, Process, NULL, 0, 1000, 0);
+	CreateTimerQueueTimer(&Handle_, NULL,Timer_Refresh::Process, NULL, 0, 1000, 0);
 }
 
 //private:
 
 VOID WINAPI Timer_Refresh::Process(PVOID Parameter, BOOLEAN) {
+	Dialog_Main::Topmost_Check();
 	PMIB_IFROW Adapter_Info_ = (PMIB_IFROW)HeapAlloc(GetProcessHeap(), 0, sizeof(MIB_IFROW));
 	for (DWORD Index_Adapter : Set_Adapter_) {
 		Adapter_Info_->dwIndex = Index_Adapter;

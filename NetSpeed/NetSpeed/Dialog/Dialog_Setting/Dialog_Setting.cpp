@@ -185,6 +185,8 @@ VOID Dialog_Setting::Color_Choose(COLORREF *Color_Bind) {
 VOID Dialog_Setting::Gather_All() {
 	Dialog_Setting::Gather_Button_Clean();
 	Dialog_Setting::Gather_Button_CleanAndExit();
+	Dialog_Setting::Gather_Button_ColorBackground();
+	Dialog_Setting::Gather_Button_ColorText();
 	Dialog_Setting::Gather_Caption();
 	Dialog_Setting::Gather_Check_Show();
 	Dialog_Setting::Gather_Check_Startup();
@@ -192,6 +194,7 @@ VOID Dialog_Setting::Gather_All() {
 	Dialog_Setting::Gather_Edit_Size();
 	Dialog_Setting::Gather_Slider_Transparency();
 	Dialog_Setting::Gather_Static_Language();
+	Dialog_Setting::Gather_Static_Size();
 	Dialog_Setting::Gather_Static_Transparency();
 }
 
@@ -201,6 +204,14 @@ VOID Dialog_Setting::Gather_Button_Clean() {
 
 VOID Dialog_Setting::Gather_Button_CleanAndExit() {
 	SetDlgItemTextW(Dialog_Setting::Handle_Get(), ID_Button_CleanAndExit, Text::Button_CleanAndExit().c_str());
+}
+
+VOID Dialog_Setting::Gather_Button_ColorBackground() {
+	SetDlgItemTextW(Dialog_Setting::Handle_Get(), ID_Button_BackgroundColor, Text::Button_ColorBackground().c_str());
+}
+
+VOID Dialog_Setting::Gather_Button_ColorText() {
+	SetDlgItemTextW(Dialog_Setting::Handle_Get(), ID_Button_TextColor, Text::Button_ColorText().c_str());
 }
 
 VOID Dialog_Setting::Gather_Caption() {

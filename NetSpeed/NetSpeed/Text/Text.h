@@ -16,6 +16,8 @@ public:
 public:
 	static std::wstring	Button_Clean();
 	static std::wstring	Button_CleanAndExit();
+	static std::wstring	Button_ColorBackground();
+	static std::wstring	Button_ColorText();
 	static std::wstring	Check_Show();
 	static std::wstring	Check_Startup();
 	static std::wstring	Dialog_Caption();
@@ -46,6 +48,8 @@ private:
 	std::wstring				Name_ = L"English";
 	std::wstring				Button_Clean_ = L"Clean";
 	std::wstring				Button_CleanAndExit_ = L"Clean And Exit";
+	std::wstring				Button_ColorBackground_ = L"Background Color";
+	std::wstring				Button_ColorText_ = L"Text Color";
 	std::wstring				Dialog_Setting_Caption_ = L"Setting";
 	std::wstring				Static_Language_ = L"Language";
 	std::wstring				Static_Transparency_ = L"Transparency:";

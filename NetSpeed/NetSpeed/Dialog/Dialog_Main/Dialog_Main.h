@@ -14,6 +14,7 @@ public:
 	static BOOL		Show_Get();
 	static VOID		Show_Set(BOOL Show);
 	static VOID		Size_Set(INT Size);
+	static VOID		Topmost_Check();
 	static VOID		Transparency_Set(INT Transparency);
 private:
 	static HBRUSH	Bursh_Background_;

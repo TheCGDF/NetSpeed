@@ -12,6 +12,8 @@ public:
 	static VOID	Gather_All();
 	static VOID	Gather_Button_Clean();
 	static VOID	Gather_Button_CleanAndExit();
+	static VOID Gather_Button_ColorBackground();
+	static VOID Gather_Button_ColorText();
 	static VOID	Gather_Caption();
 	static VOID	Gather_Check_Show();
 	static VOID	Gather_Check_Startup();

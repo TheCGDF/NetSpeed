@@ -256,6 +256,18 @@ VOID Dialog_Main::Size_Set(INT Size) {
 	InvalidateRect(Handle_Dialog, NULL, TRUE);
 }
 
+VOID Dialog_Main::Topmost_Check() {
+	BOOL Top_State = GetWindowLong(Dialog_Main::Handle_Get(), GWL_EXSTYLE) & WS_EX_TOPMOST;
+	static BOOL First = TRUE;
+	if (First == FALSE) {
+		return;
+	}
+	if (Top_State == FALSE) {
+		MessageBoxW(NULL, L"top error", L"top error", MB_OK);
+		First = FALSE;
+	}
+}
+
 VOID Dialog_Main::Transparency_Set(INT Transparency) {
 	SetLayeredWindowAttributes(Dialog_Main::Handle_Get(), 0, (255.0* Transparency) / 100.0 + 0.5, LWA_ALPHA);
 }
