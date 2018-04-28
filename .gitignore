@@ -86,6 +86,8 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+
+# VC Resource
 Resource/RC*
 
 # Visual Studio profiler
