@@ -60,7 +60,7 @@ VOID Timer_Refresh::Start() {
 	if (Set_Adapter_.empty()) {
 		return;
 	}
-	CreateTimerQueueTimer(&Handle_, NULL,Timer_Refresh::Process, NULL, 0, 1000, 0);
+	CreateTimerQueueTimer(&Handle_, NULL, Timer_Refresh::Process, NULL, 0, 1000, 0);
 }
 
 //private:

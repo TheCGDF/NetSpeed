@@ -3,6 +3,8 @@
 class NotifyIcon;
 
 class NotifyIcon {
+private:
+	NotifyIcon() {};
 public:
 	static VOID Destroy();
 	static VOID Init();

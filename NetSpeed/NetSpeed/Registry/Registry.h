@@ -5,6 +5,8 @@
 class Registry;
 
 class Registry {
+private:
+	Registry() {};
 public:
 	static VOID	Clean();
 public:

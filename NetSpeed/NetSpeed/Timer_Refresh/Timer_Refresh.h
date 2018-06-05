@@ -6,6 +6,8 @@
 class Timer_Refresh;
 
 class Timer_Refresh {
+private:
+	Timer_Refresh() {};
 public:
 	static VOID	Init();
 	static VOID Start();

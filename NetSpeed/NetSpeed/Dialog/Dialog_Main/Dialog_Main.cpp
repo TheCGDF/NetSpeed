@@ -114,6 +114,8 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT Message_Dialog, WPARAM Par
 			INT Size = Registry::Size_Get();
 			Dialog_Main::Size_Set(Size);
 
+			SetParent(Dialog_Main::Handle_Get(), NULL);
+
 			Timer_Refresh::Init();
 			Timer_Refresh::Start();
 			break;

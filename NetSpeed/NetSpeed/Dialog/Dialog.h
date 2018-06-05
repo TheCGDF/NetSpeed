@@ -5,6 +5,8 @@ class Dialog;
 
 template<class Derived>
 class Dialog {
+private:
+	Dialog() {};
 public:
 	static VOID	Destroy();
 	static HWND Handle_Get();

@@ -5,6 +5,8 @@ class Menu;
 #include "../Resource/WM_USER.h"
 
 class Menu {
+private:
+	Menu() {};
 public:
 	static VOID Init();
 	static VOID Pop();
