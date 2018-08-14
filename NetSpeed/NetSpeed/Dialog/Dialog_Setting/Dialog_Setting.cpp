@@ -37,8 +37,8 @@ INT_PTR Dialog_Setting::Process(HWND Handle_Dialog, UINT Message_Dialog, WPARAM 
 				case ID_Button_CleanAndExit:
 				{
 					Registry::Clean();
-					Destroy();
-					DestroyWindow(Handle_Dialog);
+					Dialog_Main::Destroy();
+					Dialog_Setting::Destroy();
 					break;
 				}
 				case ID_Button_TextColor:

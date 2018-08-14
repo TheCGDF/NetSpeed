@@ -49,7 +49,7 @@ COLORREF Registry::ColorBackground_Get() {
 	LSTATUS Status_ColorBackground = Registry::Value_Get(Path_NetSpeed_, Value_ColorBackground_, RRF_RT_REG_DWORD, &ColorBackground);
 	if (Status_ColorBackground != ERROR_SUCCESS) {
 		ColorBackground = RGB(0, 0, 0);
-		Registry::Transparency_Set(ColorBackground);
+		Registry::ColorBackground_Set(ColorBackground);
 	}
 	return ColorBackground;
 }
@@ -78,7 +78,7 @@ COLORREF Registry::ColorText_Get() {
 	LSTATUS Status_ColorText = Registry::Value_Get(Path_NetSpeed_, Value_ColorText_, RRF_RT_REG_DWORD, &ColorText);
 	if (Status_ColorText != ERROR_SUCCESS) {
 		ColorText = RGB(255, 255, 255);
-		Registry::Transparency_Set(ColorText);
+		Registry::ColorText_Set(ColorText);
 	}
 	return ColorText;
 }
