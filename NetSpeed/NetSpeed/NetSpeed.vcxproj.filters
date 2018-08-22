@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{062773fe-4cdc-445e-9e64-24fdfa603dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NotifyIcon">
+      <UniqueIdentifier>{7d05ce1a-31d6-4fe5-8ff9-cdb6815dec7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Registry">
+      <UniqueIdentifier>{d9257cf2-b939-421a-96fa-b6223dd76544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Text">
+      <UniqueIdentifier>{ea13c3f3-1a7f-44bb-86c1-3ca194467bd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog">
+      <UniqueIdentifier>{c9e839f1-b6a3-4f7a-9376-038f482f3e4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timer_Refresh">
+      <UniqueIdentifier>{8c0659b5-1d60-4f09-b6bf-e688ea4b6eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog\Dialog_Main">
+      <UniqueIdentifier>{fc55cfe2-94e3-4d46-a518-294b452fbba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog\Dialog_Setting">
+      <UniqueIdentifier>{7339483b-0864-4479-b2cb-1c107bcfd65f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\NetSpeed.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\WM_USER.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="NotifyIcon\NotifyIcon.h">
+      <Filter>NotifyIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="Registry\Registry.h">
+      <Filter>Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="Text\Text.h">
+      <Filter>Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog\Dialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer_Refresh\Timer_Refresh.h">
+      <Filter>Timer_Refresh</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog\Dialog_Main\Dialog_Main.h">
+      <Filter>Dialog\Dialog_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog\Dialog_Setting\Dialog_Setting.h">
+      <Filter>Dialog\Dialog_Setting</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu\Menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="NotifyIcon\NotifyIcon.cpp">
+      <Filter>NotifyIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="Registry\Registry.cpp">
+      <Filter>Registry</Filter>
+    </ClCompile>
+    <ClCompile Include="Text\Text.cpp">
+      <Filter>Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer_Refresh\Timer_Refresh.cpp">
+      <Filter>Timer_Refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\Dialog_Main\Dialog_Main.cpp">
+      <Filter>Dialog\Dialog_Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\Dialog_Setting\Dialog_Setting.cpp">
+      <Filter>Dialog\Dialog_Setting</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\Icon_Main.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
