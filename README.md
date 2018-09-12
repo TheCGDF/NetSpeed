@@ -2,7 +2,7 @@
 A suspension to show network speed</br>
 一个用来显示网速的悬浮窗
 
-## Feature
+## Feature 功能
 Show and refresh network speed per second</br>
 每秒显示并刷新网速</br>
 </br>
