@@ -1,6 +1,6 @@
 # NetSpeed
-A window to show network speed</br>
-一个用来显示网速的窗口
+A suspension to show network speed</br>
+一个用来显示网速的悬浮窗
 
 ## Feature
 Show and refresh network speed per second</br>
@@ -35,11 +35,3 @@ Save its position automatically</br>
 </br>
 Clean all data it saved</br>
 清除所有保存的数据</br>
-
-## More Info
-Chinese only</br>
-Contain pictures</br>
-只有中文</br>
-包含图片</br>
-↓</br>
-http://blog.csdn.net/daso_csdn/article/details/77902897
