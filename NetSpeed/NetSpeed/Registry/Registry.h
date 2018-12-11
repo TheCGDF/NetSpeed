@@ -12,12 +12,12 @@ public:
 public:
 	static COLORREF					ColorBackground_Get();
 	static VOID						ColorBackground_Set(COLORREF ColorBackground);
-	static COLORREF					ColorCustom_Get(INT ColorCustom_Index);
-	static VOID						ColorCustom_Set(INT ColorCustom_Index, COLORREF ColorCustom);
+	static COLORREF					ColorCustom_Get(INT ColorCustomIndex);
+	static VOID						ColorCustom_Set(INT ColorCustomIndex, COLORREF ColorCustom);
 	static COLORREF					ColorText_Get();
 	static VOID						ColorText_Set(COLORREF ColorText);
 	static INT						Language_Get();
-	static VOID						Language_Set(INT Language_Index);
+	static VOID						Language_Set(INT LanguageIndex);
 	static std::set<std::wstring>	PCI_Get();
 	static POINT					Position_Get();
 	static VOID						Position_Set(POINT Position);

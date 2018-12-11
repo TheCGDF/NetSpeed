@@ -6,10 +6,9 @@ class Dialog_Setting;
 
 class Dialog_Setting :public Dialog<Dialog_Setting> {
 public:
-	static INT_PTR WINAPI	Process(HWND Handle_Dialog, UINT Message_Dialog, WPARAM Param_WORD, LPARAM Param_LONG);
-	static VOID				Color_Choose(COLORREF *Color_Bind);
+	static INT_PTR WINAPI	Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM ParamWORD, LPARAM ParamLONG);
+	static VOID				SelectColor(COLORREF *Color_Bind);
 public:
-	static VOID	Gather_All();
 	static VOID	Gather_Button_Clean();
 	static VOID	Gather_Button_CleanAndExit();
 	static VOID Gather_Button_ColorBackground();
@@ -23,6 +22,7 @@ public:
 	static VOID	Gather_Static_Language();
 	static VOID	Gather_Static_Size();
 	static VOID	Gather_Static_Transparency();
+	static VOID	GatherAll();
 private:
 	static std::wstring	Transparency_String(INT Transparency);
 };

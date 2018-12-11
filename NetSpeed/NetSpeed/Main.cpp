@@ -9,17 +9,17 @@
 #include "Resource/resource.h"
 #include "Text/Text.h"
 
-std::wstring	File_Name;
-std::wstring	File_Path;
+std::wstring	FileName;
+std::wstring	FilePath;
 
-INT WINAPI wWinMain(HINSTANCE Handle_Instance, HINSTANCE Handle_Instance_Previous, LPWSTR Commond, INT Show_Commend) {
+INT WINAPI wWinMain(HINSTANCE Handle_Instance, HINSTANCE Handle_PreviousInstance, LPWSTR Commond, INT ShowCommend) {
 	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
 
-	WCHAR Path_File[MAX_PATH];
-	GetModuleFileNameW(NULL, Path_File, MAX_PATH);
-	File_Path = Path_File;
-	File_Name = PathFindFileNameW(Path_File);
-	File_Name.erase(File_Name.end() - 4, File_Name.end());
+	WCHAR PathFile[MAX_PATH];
+	GetModuleFileNameW(NULL, PathFile, MAX_PATH);
+	FilePath = PathFile;
+	FileName = PathFindFileNameW(PathFile);
+	FileName.erase(FileName.end() - 4, FileName.end());
 
 	Text::Init();
 	Menu::Init();

@@ -24,26 +24,23 @@ VOID Menu::Pop() {
 	//Show
 	BOOL Show = IsWindowVisible(Dialog_Main::Handle_Get());
 	if (Show == TRUE) {
-		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::Menu_Item_Hide().c_str());
+		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::MenuItem_Hide().c_str());
 	}
 	else if (Show == FALSE) {
-		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::Menu_Item_Show().c_str());
+		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::MenuItem_Show().c_str());
 	}
 	//Startup
 	BOOL Startup = Registry::Startup_Get();
 	if (Startup == TRUE) {
-		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_CHECKED, WM_MENU_STARTUP, Text::Menu_Item_Startup().c_str());
+		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_CHECKED, WM_MENU_STARTUP, Text::MenuItem_Startup().c_str());
 	}
 	else if (Startup == FALSE) {
-		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, WM_MENU_STARTUP, Text::Menu_Item_Startup().c_str());
-	}
-	else {
-		MessageBoxW(NULL, Text::Message_AdapterFindFail().c_str(), NULL, MB_OK);
+		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, WM_MENU_STARTUP, Text::MenuItem_Startup().c_str());
 	}
 	//Setting
-	ModifyMenu(Handle_, Item::Setting, MF_BYPOSITION | MF_STRING, WM_MENU_SETTING, Text::Menu_Item_Setting().c_str());
+	ModifyMenu(Handle_, Item::Setting, MF_BYPOSITION | MF_STRING, WM_MENU_SETTING, Text::MenuItem_Setting().c_str());
 	//Exit
-	ModifyMenu(Handle_, Item::Exit, MF_BYPOSITION | MF_STRING, WM_MENU_EXIT, Text::Menu_Item_Exit().c_str());
+	ModifyMenu(Handle_, Item::Exit, MF_BYPOSITION | MF_STRING, WM_MENU_EXIT, Text::MenuItem_Exit().c_str());
 	SetForegroundWindow(Dialog_Main::Handle_Get());
 	POINT Point_Cursor;
 	GetCursorPos(&Point_Cursor);

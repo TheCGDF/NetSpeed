@@ -5,87 +5,76 @@
 #include "../../NotifyIcon/NotifyIcon.h"
 #include "../../Registry/Registry.h"
 #include "../../Resource/resource.h"
+#include "../../Text/Text.h"
 #include "../Dialog_Setting/Dialog_Setting.h"
 
-HBRUSH		Dialog_Main::Bursh_Background_ = NULL;
-HBRUSH		Dialog_Main::Bursh_Text_ = NULL;
 COLORREF	Dialog_Main::Color_Background_;
 COLORREF	Dialog_Main::Color_Text_;
-HFONT		Dialog_Main::Font_Text_ = NULL;
-LONG		Dialog_Main::Origin_Height_Dialog_;
-LONG		Dialog_Main::Origin_Height_Text_;
-LONG		Dialog_Main::Origin_Width_Dialog_;
-LONG		Dialog_Main::Origin_Width_Text_;
-HPEN		Dialog_Main::Pen_Background_ = NULL;
+LONG		Dialog_Main::DialogOriginHeight_;
+LONG		Dialog_Main::DialogOriginWidth_;
+HBRUSH		Dialog_Main::Handle_Bursh_Background_ = NULL;
+HBRUSH		Dialog_Main::Handle_Bursh_Text_ = NULL;
+HFONT		Dialog_Main::Handle_Font_Text_ = NULL;
+HPEN		Dialog_Main::Handle_Pen_Background_ = NULL;
+LONG		Dialog_Main::TextOriginHeight_;
+LONG		Dialog_Main::TextOriginWidth_;
 
 //public:
 
-INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT Message_Dialog, WPARAM Param_WORD, LPARAM Param_LONG) {
+INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM ParamWORD, LPARAM ParamLONG) {
 	Dialog_Main::Handle_Set(Handle_Dialog);
-	BOOL Result_Process = TRUE;
-	switch (Message_Dialog) {
-		case WM_COMMAND:
-		{
-			switch (LOWORD(Param_WORD)) {
-				case WM_MENU_EXIT:
-				{
+	BOOL ProcessResult = TRUE;
+	switch (DialogMessage) {
+		case WM_COMMAND: {
+			switch (LOWORD(ParamWORD)) {
+				case WM_MENU_EXIT: {
 					Menu::Item_Exit();
 					break;
 				}
-				case WM_MENU_SETTING:
-				{
+				case WM_MENU_SETTING: {
 					Menu::Item_Setting();
 					break;
 				}
-				case WM_MENU_SHOW:
-				{
+				case WM_MENU_SHOW: {
 					Menu::Item_Show();
 					break;
 				}
-				case WM_MENU_STARTUP:
-				{
+				case WM_MENU_STARTUP: {
 					Menu::Item_Startup();
 					break;
 				}
-				default:
-				{
-					Result_Process = FALSE;
+				default: {
+					ProcessResult = FALSE;
 					break;
 				}
 			}
 			break;
 		}
-		case WM_CTLCOLORDLG:
-		{
-			return (INT_PTR)Bursh_Background_;
+		case WM_CTLCOLORDLG: {
+			return (INT_PTR)Handle_Bursh_Background_;
 		}
-		case WM_CTLCOLORSTATIC:
-		{
-			SetBkMode((HDC)Param_WORD, TRANSPARENT);
-			SetTextColor((HDC)Param_WORD, Color_Text_);
-			return (INT_PTR)Bursh_Background_;
+		case WM_CTLCOLORSTATIC: {
+			SetBkMode((HDC)ParamWORD, TRANSPARENT);
+			SetTextColor((HDC)ParamWORD, Color_Text_);
+			return (INT_PTR)Handle_Bursh_Background_;
 		}
-		case WM_DESTROY:
-		{
+		case WM_DESTROY: {
 			NotifyIcon::Destroy();
 			return 0;
 		}
-		case WM_ERASEBKGND:
-		{
-			RECT Rect_Dialog;
-			SelectObject((HDC)Param_WORD, Pen_Background_);
-			SelectObject((HDC)Param_WORD, Bursh_Background_);
-			GetClientRect(Handle_Dialog, &Rect_Dialog);
-			Rectangle((HDC)Param_WORD, Rect_Dialog.left, Rect_Dialog.top, Rect_Dialog.right, Rect_Dialog.bottom);
+		case WM_ERASEBKGND: {
+			RECT DialogRect;
+			SelectObject((HDC)ParamWORD, Handle_Pen_Background_);
+			SelectObject((HDC)ParamWORD, Handle_Bursh_Background_);
+			GetClientRect(Handle_Dialog, &DialogRect);
+			Rectangle((HDC)ParamWORD, DialogRect.left, DialogRect.top, DialogRect.right, DialogRect.bottom);
 			break;
 		}
-		case WM_EXITSIZEMOVE:
-		{
+		case WM_EXITSIZEMOVE: {
 			Registry::Position_Set(Position_Get());
 			break;
 		}
-		case WM_INITDIALOG:
-		{
+		case WM_INITDIALOG: {
 			Color_Background_ = Registry::ColorBackground_Get();
 			Color_Text_ = Registry::ColorText_Get();
 			Dialog_Main::ColorBackground_Set(Color_Background_);
@@ -102,76 +91,67 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT Message_Dialog, WPARAM Par
 			INT Transparency = Registry::Transparency_Get();
 			Dialog_Main::Transparency_Set(Transparency);
 
-			RECT Rect_Dialog;
-			GetWindowRect(Handle_Dialog, &Rect_Dialog);
-			Origin_Height_Dialog_ = Rect_Dialog.bottom - Rect_Dialog.top;
-			Origin_Width_Dialog_ = Rect_Dialog.right - Rect_Dialog.left;
-			RECT Rect_Text;
-			GetWindowRect(GetDlgItem(Handle_Dialog, ID_Static_Upload), &Rect_Text);
-			Origin_Height_Text_ = Rect_Text.bottom - Rect_Text.top;
-			Origin_Width_Text_ = Rect_Text.right - Rect_Text.left;
+			RECT DialogRect;
+			GetWindowRect(Handle_Dialog, &DialogRect);
+			DialogOriginHeight_ = DialogRect.bottom - DialogRect.top;
+			DialogOriginWidth_ = DialogRect.right - DialogRect.left;
+			RECT TextRect;
+			GetWindowRect(GetDlgItem(Handle_Dialog, ID_Static_Upload), &TextRect);
+			TextOriginHeight_ = TextRect.bottom - TextRect.top;
+			TextOriginWidth_ = TextRect.right - TextRect.left;
 
 			INT Size = Registry::Size_Get();
 			Dialog_Main::Size_Set(Size);
-
-			SetParent(Dialog_Main::Handle_Get(), NULL);
 
 			Timer_Refresh::Init();
 			Timer_Refresh::Start();
 			break;
 		}
-		case WM_LBUTTONDOWN:
-		{
-			SendMessageW(Handle_Dialog, WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(LOWORD(Param_LONG), HIWORD(Param_LONG)));
+		case WM_LBUTTONDOWN: {
+			SendMessageW(Handle_Dialog, WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(LOWORD(ParamLONG), HIWORD(ParamLONG)));
 			break;
 		}
-		case WM_NCPAINT:
-		{
+		case WM_NCPAINT: {
 			NotifyIcon::Init();
 			break;
 		}
-		case WM_NOTIFYICON:
-		{
-			switch (Param_LONG) {
-				case WM_RBUTTONUP:
-				{
+		case WM_NOTIFYICON: {
+			switch (ParamLONG) {
+				case WM_RBUTTONUP: {
 					Menu::Pop();
 					return TRUE;
 				}
-				default:
-				{
-					Result_Process = FALSE;
+				default: {
+					ProcessResult = FALSE;
 					break;
 				}
 			}
 			break;
 		}
-		case WM_RBUTTONUP:
-		{
+		case WM_RBUTTONUP: {
 			Menu::Pop();
 			break;
 		}
-		default:
-		{
-			Result_Process = FALSE;
+		default: {
+			ProcessResult = FALSE;
 			break;
 		}
 	}
-	return Result_Process;
+	return ProcessResult;
 }
 
 //public:
 
 VOID Dialog_Main::ColorBackground_Set(COLORREF Background_Color) {
 	Color_Background_ = Background_Color;
-	if (Bursh_Background_ != NULL) {
-		DeleteObject(Bursh_Background_);
+	if (Handle_Bursh_Background_ != NULL) {
+		DeleteObject(Handle_Bursh_Background_);
 	}
-	if (Pen_Background_ != NULL) {
-		DeleteObject(Pen_Background_);
+	if (Handle_Pen_Background_ != NULL) {
+		DeleteObject(Handle_Pen_Background_);
 	}
-	Bursh_Background_ = CreateSolidBrush(Color_Background_);
-	Pen_Background_ = CreatePen(PS_SOLID, 0, Color_Background_);
+	Handle_Bursh_Background_ = CreateSolidBrush(Color_Background_);
+	Handle_Pen_Background_ = CreatePen(PS_SOLID, 0, Color_Background_);
 	InvalidateRect(Dialog_Main::Handle_Get(), NULL, TRUE);
 }
 
@@ -181,14 +161,14 @@ VOID Dialog_Main::ColorText_Set(COLORREF Text_Color) {
 }
 
 POINT Dialog_Main::Position_Get() {
-	RECT Position_RECT;
+	RECT PositionRect;
 	HWND Handle_Dialog = Dialog_Main::Handle_Get();
-	GetWindowRect(Handle_Dialog, &Position_RECT);
-	MapWindowPoints(HWND_DESKTOP, GetParent(Handle_Dialog), (LPPOINT)&Position_RECT, sizeof(RECT) / sizeof(POINT));
-	POINT Position_POINT;
-	Position_POINT.x = Position_RECT.left;
-	Position_POINT.y = Position_RECT.top;
-	return Position_POINT;
+	GetWindowRect(Handle_Dialog, &PositionRect);
+	MapWindowPoints(HWND_DESKTOP, GetParent(Handle_Dialog), (LPPOINT)&PositionRect, sizeof(RECT) / sizeof(POINT));
+	POINT PositionPoint;
+	PositionPoint.x = PositionRect.left;
+	PositionPoint.y = PositionRect.top;
+	return PositionPoint;
 }
 
 VOID Dialog_Main::Position_Set(POINT Position) {
@@ -213,28 +193,28 @@ VOID Dialog_Main::Show_Set(BOOL Show) {
 }
 
 VOID Dialog_Main::Size_Set(INT Size) {
-	LOGFONTW Font_Info;
-	ZeroMemory(&Font_Info, sizeof(LOGFONTW));
+	LOGFONTW FontInfo;
+	ZeroMemory(&FontInfo, sizeof(LOGFONTW));
 	HWND Handle_Dialog = Dialog_Main::Handle_Get();
 	HDC Handle_DC = GetDC(NULL);
-	Font_Info.lfHeight = -MulDiv(Size, GetDeviceCaps(Handle_DC, LOGPIXELSY), 72);
-	wcscpy_s(Font_Info.lfFaceName, LF_FACESIZE, L"Consolas");
-	Font_Info.lfWeight = 400;
-	if (Font_Text_ != NULL) {
-		DeleteObject(Font_Text_);
+	FontInfo.lfHeight = -MulDiv(Size, GetDeviceCaps(Handle_DC, LOGPIXELSY), 72);
+	wcscpy_s(FontInfo.lfFaceName, LF_FACESIZE, L"Consolas");
+	FontInfo.lfWeight = 400;
+	if (Handle_Font_Text_ != NULL) {
+		DeleteObject(Handle_Font_Text_);
 	}
-	Font_Text_ = CreateFontIndirectW(&Font_Info);
+	Handle_Font_Text_ = CreateFontIndirectW(&FontInfo);
 	ReleaseDC(NULL, Handle_DC);
-	SendDlgItemMessageW(Handle_Dialog, ID_Static_Download, WM_SETFONT, (WPARAM)Font_Text_, TRUE);
-	SendDlgItemMessageW(Handle_Dialog, ID_Static_Upload, WM_SETFONT, (WPARAM)Font_Text_, TRUE);
+	SendDlgItemMessageW(Handle_Dialog, ID_Static_Download, WM_SETFONT, (WPARAM)Handle_Font_Text_, TRUE);
+	SendDlgItemMessageW(Handle_Dialog, ID_Static_Upload, WM_SETFONT, (WPARAM)Handle_Font_Text_, TRUE);
 
 	SetWindowPos(
 		Handle_Dialog,
 		NULL,
 		NULL,
 		NULL,
-		Origin_Width_Dialog_ * Size / 12,
-		Origin_Height_Dialog_ * Size / 12,
+		DialogOriginWidth_ * Size / 12,
+		DialogOriginHeight_ * Size / 12,
 		SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER
 	);
 	SetWindowPos(
@@ -242,29 +222,29 @@ VOID Dialog_Main::Size_Set(INT Size) {
 		NULL,
 		NULL,
 		NULL,
-		Origin_Width_Text_*Size / 12,
-		Origin_Height_Text_*Size / 12,
+		TextOriginWidth_*Size / 12,
+		TextOriginHeight_*Size / 12,
 		SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER
 	);
 	SetWindowPos(
 		GetDlgItem(Handle_Dialog, ID_Static_Upload),
 		NULL,
-		Origin_Width_Dialog_ * Size / 12 / 2 + 2 * Origin_Width_Text_ / 28,
+		DialogOriginWidth_ * Size / 12 / 2 + 2 * TextOriginWidth_ / 28,
 		NULL,
-		Origin_Width_Text_*Size / 12,
-		Origin_Height_Text_*Size / 12,
+		TextOriginWidth_*Size / 12,
+		TextOriginHeight_*Size / 12,
 		SWP_NOACTIVATE | SWP_NOZORDER
 	);
 	InvalidateRect(Handle_Dialog, NULL, TRUE);
 }
 
 VOID Dialog_Main::Topmost_Check() {
-	BOOL Top_State = GetWindowLong(Dialog_Main::Handle_Get(), GWL_EXSTYLE) & WS_EX_TOPMOST;
+	BOOL TopState = GetWindowLong(Dialog_Main::Handle_Get(), GWL_EXSTYLE) & WS_EX_TOPMOST;
 	static BOOL First = TRUE;
 	if (First == FALSE) {
 		return;
 	}
-	if (Top_State == FALSE) {
+	if (TopState == FALSE) {
 		MessageBoxW(NULL, L"top error", L"top error", MB_OK);
 		First = FALSE;
 	}

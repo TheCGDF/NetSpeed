@@ -12,13 +12,12 @@ public:
 	static VOID	Init();
 	static VOID Start();
 private:
-	static VOID WINAPI				Process(PVOID lpParameter, BOOLEAN);
-	static DWORD					Download_New_;
-	static DWORD					Download_Old_;
+	static VOID WINAPI				Process(PVOID Parameter, BOOLEAN);
+	static DWORD					DownloadOld_;
 	static BOOL						First_;
 	static HANDLE					Handle_;
-	static std::set<DWORD>			Set_Adapter_;
-	static std::set<std::wstring>	Set_PCI_;
-	static DWORD					Upload_New_;
-	static DWORD					Upload_Old_;
+	static HANDLE					Handle_SharedMap_;
+	static const SIZE_T				SharedMapSize_;
+	static LPWSTR					SharedMapView_;
+	static DWORD					UploadOld_;
 };
