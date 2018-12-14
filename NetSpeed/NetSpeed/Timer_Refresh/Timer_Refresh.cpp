@@ -60,7 +60,7 @@ VOID WINAPI Timer_Refresh::Process(PVOID Parameter, BOOLEAN) {
 			continue;
 		}
 		for (std::wstring PCI : PCISet) {
-			if (std::wstring(AdapterInfo->wszName).find(PCI) != -1) {
+			if (std::wstring(AdapterInfo->wszName).find(PCI) != std::string::npos) {
 				DownloadNew_ += AdapterInfo->dwInOctets;
 				UploadNew_ += AdapterInfo->dwOutOctets;
 			}
