@@ -8,25 +8,28 @@
 #include "../../Text/Text.h"
 #include "../Dialog_Setting/Dialog_Setting.h"
 
-COLORREF	Dialog_Main::Color_Background_;
-COLORREF	Dialog_Main::Color_Text_;
-LONG		Dialog_Main::DialogOriginHeight_;
-LONG		Dialog_Main::DialogOriginWidth_;
+COLORREF		Dialog_Main::Color_Background_;
+COLORREF		Dialog_Main::Color_Text_;
+LONG			Dialog_Main::DialogOriginHeight_;
+LONG			Dialog_Main::DialogOriginWidth_;
 HBRUSH		Dialog_Main::Handle_Bursh_Background_ = NULL;
 HBRUSH		Dialog_Main::Handle_Bursh_Text_ = NULL;
 HFONT		Dialog_Main::Handle_Font_Text_ = NULL;
-HPEN		Dialog_Main::Handle_Pen_Background_ = NULL;
-LONG		Dialog_Main::TextOriginHeight_;
-LONG		Dialog_Main::TextOriginWidth_;
+HPEN			Dialog_Main::Handle_Pen_Background_ = NULL;
+LONG			Dialog_Main::TextOriginHeight_;
+LONG			Dialog_Main::TextOriginWidth_;
 
 //public:
 
 INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM ParamWORD, LPARAM ParamLONG) {
 	Dialog_Main::Handle_Set(Handle_Dialog);
 	BOOL ProcessResult = TRUE;
-	switch (DialogMessage) {
+	switch(DialogMessage) {
 		case WM_COMMAND: {
-			switch (LOWORD(ParamWORD)) {
+			switch(LOWORD(ParamWORD)) {
+				case WA_INACTIVE: {
+					SetWindowPos(Handle_Dialog, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+				}
 				case WM_MENU_EXIT: {
 					Menu::Item_Exit();
 					break;
@@ -116,7 +119,7 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM Para
 			break;
 		}
 		case WM_NOTIFYICON: {
-			switch (ParamLONG) {
+			switch(ParamLONG) {
 				case WM_RBUTTONUP: {
 					Menu::Pop();
 					return TRUE;
@@ -144,10 +147,10 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM Para
 
 VOID Dialog_Main::ColorBackground_Set(COLORREF Background_Color) {
 	Color_Background_ = Background_Color;
-	if (Handle_Bursh_Background_ != NULL) {
+	if(Handle_Bursh_Background_ != NULL) {
 		DeleteObject(Handle_Bursh_Background_);
 	}
-	if (Handle_Pen_Background_ != NULL) {
+	if(Handle_Pen_Background_ != NULL) {
 		DeleteObject(Handle_Pen_Background_);
 	}
 	Handle_Bursh_Background_ = CreateSolidBrush(Color_Background_);
@@ -165,10 +168,10 @@ POINT Dialog_Main::Position_Get() {
 	HWND Handle_Dialog = Dialog_Main::Handle_Get();
 	GetWindowRect(Handle_Dialog, &PositionRect);
 	MapWindowPoints(HWND_DESKTOP, GetParent(Handle_Dialog), (LPPOINT)&PositionRect, sizeof(RECT) / sizeof(POINT));
-	POINT PositionPoint;
-	PositionPoint.x = PositionRect.left;
-	PositionPoint.y = PositionRect.top;
-	return PositionPoint;
+	return  POINT{
+		.x = PositionRect.left,
+		.y = PositionRect.top
+	};
 }
 
 VOID Dialog_Main::Position_Set(POINT Position) {
@@ -181,13 +184,8 @@ BOOL Dialog_Main::Show_Get() {
 
 VOID Dialog_Main::Show_Set(BOOL Show) {
 	HWND Handle_Dialog = Dialog_Main::Handle_Get();
-	if (Show == TRUE) {
-		ShowWindow(Handle_Dialog, SW_SHOW);
-	}
-	else {
-		ShowWindow(Handle_Dialog, SW_HIDE);
-	}
-	if (Handle_Dialog != NULL) {
+	ShowWindow(Handle_Dialog, Show ? SW_SHOW : SW_HIDE);
+	if(Handle_Dialog != NULL) {
 		Dialog_Setting::Gather_Check_Show();
 	}
 }
@@ -200,7 +198,7 @@ VOID Dialog_Main::Size_Set(INT Size) {
 	FontInfo.lfHeight = -MulDiv(Size, GetDeviceCaps(Handle_DC, LOGPIXELSY), 72);
 	wcscpy_s(FontInfo.lfFaceName, LF_FACESIZE, L"Consolas");
 	FontInfo.lfWeight = 400;
-	if (Handle_Font_Text_ != NULL) {
+	if(Handle_Font_Text_ != NULL) {
 		DeleteObject(Handle_Font_Text_);
 	}
 	Handle_Font_Text_ = CreateFontIndirectW(&FontInfo);
@@ -222,8 +220,8 @@ VOID Dialog_Main::Size_Set(INT Size) {
 		NULL,
 		NULL,
 		NULL,
-		TextOriginWidth_*Size / 12,
-		TextOriginHeight_*Size / 12,
+		TextOriginWidth_ * Size / 12,
+		TextOriginHeight_ * Size / 12,
 		SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER
 	);
 	SetWindowPos(
@@ -231,25 +229,13 @@ VOID Dialog_Main::Size_Set(INT Size) {
 		NULL,
 		DialogOriginWidth_ * Size / 12 / 2 + 2 * TextOriginWidth_ / 28,
 		NULL,
-		TextOriginWidth_*Size / 12,
-		TextOriginHeight_*Size / 12,
+		TextOriginWidth_ * Size / 12,
+		TextOriginHeight_ * Size / 12,
 		SWP_NOACTIVATE | SWP_NOZORDER
 	);
 	InvalidateRect(Handle_Dialog, NULL, TRUE);
 }
 
-VOID Dialog_Main::Topmost_Check() {
-	BOOL TopState = GetWindowLong(Dialog_Main::Handle_Get(), GWL_EXSTYLE) & WS_EX_TOPMOST;
-	static BOOL First = TRUE;
-	if (First == FALSE) {
-		return;
-	}
-	if (TopState == FALSE) {
-		MessageBoxW(NULL, L"top error", L"top error", MB_OK);
-		First = FALSE;
-	}
-}
-
 VOID Dialog_Main::Transparency_Set(INT Transparency) {
-	SetLayeredWindowAttributes(Dialog_Main::Handle_Get(), 0, (255.0* Transparency) / 100.0 + 0.5, LWA_ALPHA);
+	SetLayeredWindowAttributes(Dialog_Main::Handle_Get(), 0, (255.0 * Transparency) / 100.0 + 0.5, LWA_ALPHA);
 }

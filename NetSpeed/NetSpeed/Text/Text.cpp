@@ -8,24 +8,24 @@ std::vector<Text>	Text::TextVector_(Text::Language::Total);
 
 VOID Text::Init() {
 	Text &Text_ChineseSimplified = TextVector_[Language::ChineseSimplified];
-	Text_ChineseSimplified.Button_Clean_ = L"ÇåÀí";
-	Text_ChineseSimplified.Button_CleanAndExit_ = L"ÇåÀí²¢ÍË³ö";
-	Text_ChineseSimplified.Button_ColorBackground_ = L"±³¾°ÑÕÉ«";
-	Text_ChineseSimplified.Button_ColorText_ = L"ÎÄ×ÖÑÕÉ«";
-	Text_ChineseSimplified.Dialog_Setting_Caption_ = L"ÉèÖÃ";
-	Text_ChineseSimplified.MenuItem_Clean_ = L"ÇåÀí×¢²á±í";
-	Text_ChineseSimplified.MenuItem_Exit_ = L"ÍË³ö";
-	Text_ChineseSimplified.MenuItem_Hide_ = L"Òş²Ø";
-	Text_ChineseSimplified.MenuItem_Setting_ = L"ÉèÖÃ";
-	Text_ChineseSimplified.MenuItem_Show_ = L"ÏÔÊ¾";
-	Text_ChineseSimplified.MenuItem_Startup_ = L"¿ª»ú×ÔÆô";
-	Text_ChineseSimplified.Message_CreateSharedMemoryFail_ = L"´´½¨¹²ÏíÄÚ´æÊ§°Ü¡£";
-	Text_ChineseSimplified.Message_RegistryOpenFail_ = L"´ò¿ª×¢²á±íÊ§°Ü¡£";
-	Text_ChineseSimplified.Message_CleanFinish_ = L"ÇåÀí×¢²á±íÍê³É¡£";
-	Text_ChineseSimplified.Name_ = L"¼òÌåÖĞÎÄ";
-	Text_ChineseSimplified.Static_Language_ = L"ÓïÑÔ";
-	Text_ChineseSimplified.Static_Size_ = L"´óĞ¡";
-	Text_ChineseSimplified.Static_Transparency_ = L"Í¸Ã÷¶È£º";
+	Text_ChineseSimplified.Button_Clean_ = L"æ¸…ç†";
+	Text_ChineseSimplified.Button_CleanAndExit_ = L"æ¸…ç†å¹¶é€€å‡º";
+	Text_ChineseSimplified.Button_ColorBackground_ = L"èƒŒæ™¯é¢œè‰²";
+	Text_ChineseSimplified.Button_ColorText_ = L"æ–‡å­—é¢œè‰²";
+	Text_ChineseSimplified.Dialog_Setting_Caption_ = L"è®¾ç½®";
+	Text_ChineseSimplified.MenuItem_Clean_ = L"æ¸…ç†æ³¨å†Œè¡¨";
+	Text_ChineseSimplified.MenuItem_Exit_ = L"é€€å‡º";
+	Text_ChineseSimplified.MenuItem_Hide_ = L"éšè—";
+	Text_ChineseSimplified.MenuItem_Setting_ = L"è®¾ç½®";
+	Text_ChineseSimplified.MenuItem_Show_ = L"æ˜¾ç¤º";
+	Text_ChineseSimplified.MenuItem_Startup_ = L"å¼€æœºè‡ªå¯";
+	Text_ChineseSimplified.Message_CreateSharedMemoryFail_ = L"åˆ›å»ºå…±äº«å†…å­˜å¤±è´¥ã€‚";
+	Text_ChineseSimplified.Message_RegistryOpenFail_ = L"æ‰“å¼€æ³¨å†Œè¡¨å¤±è´¥ã€‚";
+	Text_ChineseSimplified.Message_CleanFinish_ = L"æ¸…ç†æ³¨å†Œè¡¨å®Œæˆã€‚";
+	Text_ChineseSimplified.Name_ = L"ç®€ä½“ä¸­æ–‡";
+	Text_ChineseSimplified.Static_Language_ = L"è¯­è¨€";
+	Text_ChineseSimplified.Static_Size_ = L"å¤§å°";
+	Text_ChineseSimplified.Static_Transparency_ = L"é€æ˜åº¦ï¼š";
 }
 
 INT Text::Language_Get(std::wstring Language_Name) {

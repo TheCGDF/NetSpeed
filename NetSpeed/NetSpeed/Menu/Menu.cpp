@@ -15,28 +15,28 @@ HMENU	Menu::Handle_ = NULL;
 
 VOID Menu::Init() {
 	Handle_ = CreatePopupMenu();
-	for (INT Index = 0; Index <= Item::Total - 1; Index++) {
+	for(INT Index = 0; Index <= Item::Total - 1; Index++) {
 		InsertMenuW(Handle_, 0, MF_STRING, NULL, NULL);
 	}
 }
 
 VOID Menu::Pop() {
 	//Show
-	BOOL Show = IsWindowVisible(Dialog_Main::Handle_Get());
-	if (Show == TRUE) {
-		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::MenuItem_Hide().c_str());
-	}
-	else if (Show == FALSE) {
-		ModifyMenu(Handle_, Item::Show, MF_BYPOSITION | MF_STRING, WM_MENU_SHOW, Text::MenuItem_Show().c_str());
-	}
+	ModifyMenu(
+		Handle_,
+		Item::Show,
+		MF_BYPOSITION | MF_STRING,
+		WM_MENU_SHOW,
+		(IsWindowVisible(Dialog_Main::Handle_Get()) ? Text::MenuItem_Hide() : Text::MenuItem_Show()).c_str()
+	);
 	//Startup
-	BOOL Startup = Registry::Startup_Get();
-	if (Startup == TRUE) {
-		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_CHECKED, WM_MENU_STARTUP, Text::MenuItem_Startup().c_str());
-	}
-	else if (Startup == FALSE) {
-		ModifyMenuW(Handle_, Item::Startup, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, WM_MENU_STARTUP, Text::MenuItem_Startup().c_str());
-	}
+	ModifyMenuW(
+		Handle_,
+		Item::Startup,
+		MF_BYPOSITION | MF_STRING | (Registry::Startup_Get() ? MF_CHECKED : MF_UNCHECKED),
+		WM_MENU_STARTUP,
+		Text::MenuItem_Startup().c_str()
+	);
 	//Setting
 	ModifyMenu(Handle_, Item::Setting, MF_BYPOSITION | MF_STRING, WM_MENU_SETTING, Text::MenuItem_Setting().c_str());
 	//Exit
@@ -50,7 +50,7 @@ VOID Menu::Pop() {
 //public:
 
 VOID Menu::Item_Exit() {
-	if (Dialog_Setting::Handle_Get() != NULL) {
+	if(Dialog_Setting::Handle_Get() != NULL) {
 		Dialog_Setting::Destroy();
 	}
 	NotifyIcon::Destroy();
@@ -59,7 +59,7 @@ VOID Menu::Item_Exit() {
 
 VOID Menu::Item_Setting() {
 	HWND Handle_DialogSetting = Dialog_Setting::Handle_Get();
-	if (Handle_DialogSetting != NULL) {
+	if(Handle_DialogSetting != NULL) {
 		SetForegroundWindow(Handle_DialogSetting);
 		return;
 	}
@@ -67,22 +67,18 @@ VOID Menu::Item_Setting() {
 }
 
 VOID Menu::Item_Show() {
-	BOOL Show = Dialog_Main::Show_Get();
-	if (Show == TRUE) {
-		ShowWindow(Dialog_Main::Handle_Get(), SW_HIDE);
-	}
-	else if (Show == FALSE) {
-		ShowWindow(Dialog_Main::Handle_Get(), SW_SHOW);
-	}
-	if (Dialog_Setting::Handle_Get() != NULL) {
+	ShowWindow(
+		Dialog_Main::Handle_Get(),
+		Dialog_Main::Show_Get() ? SW_HIDE : SW_SHOW
+	);
+	if(Dialog_Setting::Handle_Get() != NULL) {
 		Dialog_Setting::Gather_Check_Show();
 	}
 }
 
 VOID Menu::Item_Startup() {
-	BOOL Startup = Registry::Startup_Get();
-	Registry::Startup_Set(!Startup);
-	if (Dialog_Setting::Handle_Get() != NULL) {
+	Registry::Startup_Set(!Registry::Startup_Get());
+	if(Dialog_Setting::Handle_Get() != NULL) {
 		Dialog_Setting::Gather_Check_Startup();
 	}
 }

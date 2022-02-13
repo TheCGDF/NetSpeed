@@ -37,8 +37,6 @@ VOID Timer_Refresh::Start() {
 //private:
 
 VOID WINAPI Timer_Refresh::Process(PVOID Parameter, BOOLEAN) {
-	Dialog_Main::Topmost_Check();
-
 	std::set<std::wstring> PCISet = Registry::PCI_Get();
 	DWORD TableSize = sizeof(MIB_IFTABLE);
 	PMIB_IFTABLE AdapterTable = (PMIB_IFTABLE)HeapAlloc(GetProcessHeap(), 0, TableSize);

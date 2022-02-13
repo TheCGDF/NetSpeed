@@ -12,13 +12,13 @@
 INT_PTR Dialog_Setting::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM Param_WORD, LPARAM Param_LONG) {
 	Handle_Set(Handle_Dialog);
 	BOOL Result_Process = TRUE;
-	switch (DialogMessage) {
+	switch(DialogMessage) {
 		case WM_CLOSE: {
 			DestroyWindow(Handle_Dialog);
 			return 0;
 		}
 		case WM_COMMAND: {
-			switch (LOWORD(Param_WORD)) {
+			switch(LOWORD(Param_WORD)) {
 				case ID_Button_BackgroundColor: {
 					COLORREF Color_Background = Registry::ColorBackground_Get();
 					SelectColor(&Color_Background);
@@ -44,7 +44,7 @@ INT_PTR Dialog_Setting::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM P
 					break;
 				}
 				case ID_Combo_Language: {
-					switch (HIWORD(Param_WORD)) {
+					switch(HIWORD(Param_WORD)) {
 						case CBN_SELCHANGE: {
 							HWND Handle_Combo_Language = GetDlgItem(Handle_Dialog, ID_Combo_Language);
 							INT Languae_Index = ComboBox_GetCurSel(Handle_Combo_Language);
@@ -71,15 +71,15 @@ INT_PTR Dialog_Setting::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM P
 					break;
 				}
 				case ID_Edit_Size: {
-					switch (HIWORD(Param_WORD)) {
+					switch(HIWORD(Param_WORD)) {
 						case EN_CHANGE: {
 							WCHAR Size_Text[4];
 							GetDlgItemTextW(Handle_Dialog, ID_Edit_Size, Size_Text, 4);
 							INT Size = _wtoi(Size_Text);
-							if (Size == 0) {
+							if(Size == 0) {
 								break;
 							}
-							if (Size > 128) {
+							if(Size > 128) {
 								SetDlgItemTextW(Handle_Dialog, ID_Edit_Size, L"128");
 								Size = 128;
 							}
@@ -101,9 +101,9 @@ INT_PTR Dialog_Setting::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM P
 		}
 		case WM_HSCROLL: {
 			HWND Handle_Slider_Transparency = GetDlgItem(Handle_Dialog, ID_Slider_Transparency);
-			if (Param_LONG == (LPARAM)Handle_Slider_Transparency) {
+			if(Param_LONG == (LPARAM)Handle_Slider_Transparency) {
 				INT Position_Slider = HIWORD(Param_WORD);
-				switch (LOWORD(Param_WORD)) {
+				switch(LOWORD(Param_WORD)) {
 					case TB_THUMBTRACK: {
 						Dialog_Main::Transparency_Set(Position_Slider);
 						std::wstring Transparency_wstring = Dialog_Setting::Transparency_String(Position_Slider);
@@ -138,24 +138,25 @@ INT_PTR Dialog_Setting::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM P
 
 //public:
 
-VOID Dialog_Setting::SelectColor(COLORREF *Color_Bind) {
-	CHOOSECOLOR ColorChooser;
+VOID Dialog_Setting::SelectColor(COLORREF* Color_Bind) {
 	COLORREF Color_Custom[16];
-	for (INT ColorCustomIndex = 0; ColorCustomIndex <= 15; ColorCustomIndex++) {
+	for(INT ColorCustomIndex = 0; ColorCustomIndex <= 15; ColorCustomIndex++) {
 		Color_Custom[ColorCustomIndex] = Registry::ColorCustom_Get(ColorCustomIndex);
 	}
-	ColorChooser.lStructSize = sizeof(CHOOSECOLOR);
-	ColorChooser.hwndOwner = Dialog_Setting::Handle_Get();
-	ColorChooser.hInstance = NULL;
-	ColorChooser.rgbResult = *Color_Bind;
-	ColorChooser.lpCustColors = Color_Custom;
-	ColorChooser.Flags = CC_FULLOPEN | CC_RGBINIT;
-	ColorChooser.lCustData = 0;
-	ColorChooser.lpfnHook = NULL;
-	ColorChooser.lpTemplateName = NULL;
+	CHOOSECOLOR ColorChooser{
+		.lStructSize = sizeof(CHOOSECOLOR),
+		.hwndOwner = Dialog_Setting::Handle_Get(),
+		.hInstance = NULL,
+		.rgbResult = *Color_Bind,
+		.lpCustColors = Color_Custom,
+		.Flags = CC_FULLOPEN | CC_RGBINIT,
+		.lCustData = 0,
+		.lpfnHook = NULL,
+		.lpTemplateName = NULL,
+	};
 	ChooseColor(&ColorChooser);
 	*Color_Bind = ColorChooser.rgbResult;
-	for (INT ColorCustomSetIndex = 0; ColorCustomSetIndex <= 15; ColorCustomSetIndex++) {
+	for(INT ColorCustomSetIndex = 0; ColorCustomSetIndex <= 15; ColorCustomSetIndex++) {
 		Registry::ColorCustom_Set(ColorCustomSetIndex, Color_Custom[ColorCustomSetIndex]);
 	}
 }
@@ -199,21 +200,27 @@ VOID Dialog_Setting::Gather_Check_Startup() {
 VOID Dialog_Setting::Gather_Combo_Language() {
 	HWND Handle_Combo_Language = GetDlgItem(Dialog_Setting::Handle_Get(), ID_Combo_Language);
 	ComboBox_ResetContent(Handle_Combo_Language);
-	for (INT Index = 0; Index <= Text::Language::Total - 1; Index++) {
+	for(INT Index = 0; Index <= Text::Language::Total - 1; Index++) {
 		ComboBox_AddString(Handle_Combo_Language, Text::Name(Index).c_str());
 	}
 	ComboBox_SetCurSel(Handle_Combo_Language, Registry::Language_Get());
 }
 
 VOID Dialog_Setting::Gather_Edit_Size() {
-	INT Size = Registry::Size_Get();
-	SetDlgItemTextW(Dialog_Setting::Handle_Get(), ID_Edit_Size, std::to_wstring(Size).c_str());
+	SetDlgItemTextW(
+		Dialog_Setting::Handle_Get(), 
+		ID_Edit_Size, 
+		std::to_wstring(Registry::Size_Get()).c_str()
+	);
 }
 
 VOID Dialog_Setting::Gather_Slider_Transparency() {
-	HWND Handle_Slider_Transparency = GetDlgItem(Dialog_Setting::Handle_Get(), ID_Slider_Transparency);
-	INT Transparency = Registry::Transparency_Get();
-	SendMessageW(Handle_Slider_Transparency, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)Transparency);
+	SendMessageW(
+		GetDlgItem(Dialog_Setting::Handle_Get(), ID_Slider_Transparency),
+		TBM_SETPOS,
+		(WPARAM)TRUE,
+		(LPARAM)Registry::Transparency_Get()
+	);
 }
 
 VOID Dialog_Setting::Gather_Static_Language() {
@@ -225,8 +232,7 @@ VOID Dialog_Setting::Gather_Static_Size() {
 }
 
 VOID Dialog_Setting::Gather_Static_Transparency() {
-	INT Transparency = Registry::Transparency_Get();
-	std::wstring Transparency_wstring = Dialog_Setting::Transparency_String(Transparency);
+	std::wstring Transparency_wstring = Dialog_Setting::Transparency_String(Registry::Transparency_Get());
 	SetDlgItemTextW(Dialog_Setting::Handle_Get(), ID_Static_Transparency, Transparency_wstring.c_str());
 }
 
