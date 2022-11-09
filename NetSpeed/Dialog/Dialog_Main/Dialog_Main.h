@@ -10,7 +10,6 @@ public:
 public:
     static void ColorBackground_Set(COLORREF Background_Color);
     static void ColorText_Set(COLORREF Text_Color);
-    static POINT Position_Get();
     static void Position_Set(POINT Position);
     static bool Show_Get();
     static void Show_Set(bool Show);

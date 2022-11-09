@@ -108,5 +108,17 @@ private:
             std::to_wstring(UploadDisparityRaw) +
             L"}";
         StringCchCopyW(SharedMapView_, SharedMapSize_, SharedMapJson.c_str());
+
+        RECT Rect;
+        GetWindowRect(Dialog_Main::Handle_Get(), &Rect);
+        if (Rect.right - Rect.left < GetSystemMetrics(SM_CXSCREEN) &&
+            Rect.bottom - Rect.top < GetSystemMetrics(SM_CYSCREEN) &&
+            (Rect.left < 0 || GetSystemMetrics(SM_CXSCREEN) < Rect.right ||
+                Rect.right < 0 || GetSystemMetrics(SM_CYSCREEN) < Rect.bottom)) {
+            Dialog_Main::Position_Set(POINT{
+                .x = (GetSystemMetrics(SM_CXSCREEN) - Rect.right + Rect.left) / 2 ,
+                .y = (GetSystemMetrics(SM_CYSCREEN) - Rect.bottom + Rect.top) / 2 }
+            );
+        }
     }
 };

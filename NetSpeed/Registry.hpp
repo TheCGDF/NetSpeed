@@ -51,7 +51,7 @@ public:
         wchar_t Language[100];
         auto LanguageStatus = Registry::Value_Get(Path_NetSpeed_, Value_Language_, RRF_RT_REG_SZ, Language);
         if (LanguageStatus == ERROR_SUCCESS) {
-           return Text::Language_Get(Language);
+            return Text::Language_Get(Language);
         }
         return 0;
     }
@@ -104,15 +104,26 @@ public:
     }
 
     static POINT Position_Get() {
-        POINT Poisition;
-        auto PositionXStatus = Registry::Value_Get(Path_NetSpeed_, Value_PositionX_, RRF_RT_REG_DWORD, &Poisition.x);
-        auto PositionYStatus = Registry::Value_Get(Path_NetSpeed_, Value_PositionY_, RRF_RT_REG_DWORD, &Poisition.y);
+        POINT Position;
+        auto PositionXStatus = Registry::Value_Get(Path_NetSpeed_, Value_PositionX_, RRF_RT_REG_DWORD, &Position.x);
+        auto PositionYStatus = Registry::Value_Get(Path_NetSpeed_, Value_PositionY_, RRF_RT_REG_DWORD, &Position.y);
+        RECT Rect;
+        GetWindowRect(Dialog_Main::Handle_Get(), &Rect);
         if (PositionXStatus != ERROR_SUCCESS || PositionYStatus != ERROR_SUCCESS) {
-            Poisition = Dialog_Main::Position_Get();
-            Registry::Position_Set(Poisition);
-            //todo check是否在屏幕外？
+            Position.x = Rect.left;
+            Position.y = Rect.top;
         }
-        return Poisition;
+        //GetSystemMetrics会包含任务栏，但由于任务栏可能出现在各种位置，因此不作处理
+        if (Rect.right - Rect.left < GetSystemMetrics(SM_CXSCREEN) &&
+            Rect.bottom - Rect.top < GetSystemMetrics(SM_CYSCREEN) &&
+            (Position.x < 0 || GetSystemMetrics(SM_CXSCREEN) < Position.x + Rect.right - Rect.left ||
+                Position.y < 0 || GetSystemMetrics(SM_CYSCREEN) < Position.y + Rect.bottom - Rect.top)) {
+            Position.x = (GetSystemMetrics(SM_CXSCREEN) - Rect.right + Rect.left) / 2;
+            Position.y = (GetSystemMetrics(SM_CYSCREEN) - Rect.bottom + Rect.top) / 2;
+            Dialog_Main::Position_Set(Position);
+        }
+        Registry::Position_Set(Position);
+        return Position;
     }
 
     static void Position_Set(POINT Position) {
@@ -121,7 +132,7 @@ public:
     }
 
     static int Size_Get() {
-        auto Size=12;
+        auto Size = 12;
         Registry::Value_Get(Path_NetSpeed_, Value_Size_, RRF_RT_REG_DWORD, &Size);
         return Size;
     }
@@ -150,7 +161,7 @@ public:
     }
 
     static int Transparency_Get() {
-        auto Transparency=65;
+        auto Transparency = 65;
         Registry::Value_Get(Path_NetSpeed_, Value_Transparency_, RRF_RT_REG_DWORD, &Transparency);
         return Transparency;
     }

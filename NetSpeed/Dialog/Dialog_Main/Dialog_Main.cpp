@@ -73,7 +73,9 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM Para
         break;
     }
     case WM_EXITSIZEMOVE: {
-        Registry::Position_Set(Position_Get());
+        RECT Rect;
+        GetWindowRect(Handle_Get(), &Rect);
+        Registry::Position_Set(POINT{ .x = Rect.left,.y = Rect.top });
         break;
     }
     case WM_INITDIALOG: {
@@ -111,6 +113,32 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM Para
     }
     case WM_LBUTTONDOWN: {
         SendMessageW(Handle_Dialog, WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(LOWORD(ParamLONG), HIWORD(ParamLONG)));
+        break;
+    }
+    case WM_WINDOWPOSCHANGING: {
+        //该消息会一直发送
+        PWINDOWPOS WindowPosition = (PWINDOWPOS)ParamLONG;
+        if (WindowPosition->flags == (SWP_NOMOVE | SWP_NOSIZE)) {
+            break;
+        }
+        RECT Rect;
+        GetWindowRect(Dialog_Main::Handle_Get(), &Rect);
+        if (Rect.right - Rect.left < GetSystemMetrics(SM_CXSCREEN)) {
+            if (Rect.left < 0) {
+                WindowPosition->x = 0;
+            }
+            if (GetSystemMetrics(SM_CXSCREEN) < Rect.right) {
+                WindowPosition->x = GetSystemMetrics(SM_CXSCREEN) - Rect.right + Rect.left;
+            }
+        }
+        if (Rect.bottom - Rect.top < GetSystemMetrics(SM_CYSCREEN)) {
+            if (Rect.top < 0) {
+                WindowPosition->y = 0;
+            }
+            if (GetSystemMetrics(SM_CYSCREEN) < Rect.bottom) {
+                WindowPosition->y = GetSystemMetrics(SM_CYSCREEN) - Rect.bottom + Rect.top;
+            }
+        }
         break;
     }
     case WM_NCPAINT: {
@@ -160,17 +188,6 @@ void Dialog_Main::ColorBackground_Set(COLORREF Background_Color) {
 void Dialog_Main::ColorText_Set(COLORREF Text_Color) {
     Color_Text_ = Text_Color;
     InvalidateRect(Dialog_Main::Handle_Get(), NULL, true);
-}
-
-POINT Dialog_Main::Position_Get() {
-    RECT PositionRect;
-    auto Handle_Dialog = Dialog_Main::Handle_Get();
-    GetWindowRect(Handle_Dialog, &PositionRect);
-    MapWindowPoints(HWND_DESKTOP, GetParent(Handle_Dialog), (LPPOINT)&PositionRect, sizeof(RECT) / sizeof(POINT));
-    return POINT{
-        .x = PositionRect.left,
-        .y = PositionRect.top
-    };
 }
 
 void Dialog_Main::Position_Set(POINT Position) {
