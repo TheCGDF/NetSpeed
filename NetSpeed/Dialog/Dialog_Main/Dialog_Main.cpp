@@ -28,6 +28,7 @@ INT_PTR Dialog_Main::Process(HWND Handle_Dialog, UINT DialogMessage, WPARAM Para
         switch (LOWORD(ParamWORD)) {
         case WA_INACTIVE: {
             SetWindowPos(Handle_Dialog, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+            break;
         }
         case WM_MENU_EXIT: {
             Menu::Item_Exit();
