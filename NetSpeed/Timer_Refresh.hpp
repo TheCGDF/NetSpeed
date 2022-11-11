@@ -111,14 +111,29 @@ private:
 
         RECT Rect;
         GetWindowRect(Dialog_Main::Handle_Get(), &Rect);
-        if (Rect.right - Rect.left < GetSystemMetrics(SM_CXSCREEN) &&
-            Rect.bottom - Rect.top < GetSystemMetrics(SM_CYSCREEN) &&
-            (Rect.left < 0 || GetSystemMetrics(SM_CXSCREEN) < Rect.right ||
-                Rect.right < 0 || GetSystemMetrics(SM_CYSCREEN) < Rect.bottom)) {
-            Dialog_Main::Position_Set(POINT{
-                .x = (GetSystemMetrics(SM_CXSCREEN) - Rect.right + Rect.left) / 2 ,
-                .y = (GetSystemMetrics(SM_CYSCREEN) - Rect.bottom + Rect.top) / 2 }
-            );
+        POINT Position{
+            .x = Rect.left,
+            .y = Rect.top,
+        };
+        if (Rect.right - Rect.left < GetSystemMetrics(SM_CXSCREEN)) {
+            if (Rect.left < 0) {
+                Position.x = 0;
+            }
+            if (GetSystemMetrics(SM_CXSCREEN) < Rect.right) {
+                Position.x = GetSystemMetrics(SM_CXSCREEN) - Rect.right + Rect.left;
+            }
+        }
+        if (Rect.bottom - Rect.top < GetSystemMetrics(SM_CYSCREEN)) {
+            if (Rect.top < 0) {
+                Position.y = 0;
+            }
+            if (GetSystemMetrics(SM_CYSCREEN) < Rect.bottom) {
+                Position.y = GetSystemMetrics(SM_CYSCREEN) - Rect.bottom + Rect.top;
+            }
+        }
+        if (Position.x != Rect.left || Position.y != Rect.top) {
+            Dialog_Main::Position_Set(Position);
+            Registry::Position_Set(Position);
         }
     }
 };
